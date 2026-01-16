@@ -1,0 +1,250 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.15 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0 0);
+  --primary: oklch(0.35 0.02 250);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.96 0 0);
+  --secondary-foreground: oklch(0.25 0 0);
+  --muted: oklch(0.96 0.005 250);
+  --muted-foreground: oklch(0.5 0.01 250);
+  --accent: oklch(0.94 0.01 250);
+  --accent-foreground: oklch(0.25 0 0);
+  --destructive: oklch(0.55 0.2 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.92 0.005 250);
+  --input: oklch(0.92 0.005 250);
+  --ring: oklch(0.35 0.02 250);
+  --chart-1: oklch(0.65 0.2 40);
+  --chart-2: oklch(0.6 0.12 185);
+  --chart-3: oklch(0.4 0.07 230);
+  --chart-4: oklch(0.83 0.19 85);
+  --chart-5: oklch(0.77 0.19 70);
+  --radius: 0.5rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: hsl(215 28% 9%);
+  --foreground: hsl(215 15% 92%);
+  --card: hsl(215 28% 9%);
+  --card-foreground: oklch(0.95 0 0);
+  --popover: hsl(215 28% 9%);
+  --popover-foreground: oklch(0.95 0 0);
+  --primary: hsl(215 45% 62%);
+  --primary-foreground: oklch(0.12 0.01 250);
+  --secondary: hsl(215 20% 18%);
+  --secondary-foreground: oklch(0.95 0 0);
+  --muted: hsl(215 20% 18%);
+  --muted-foreground: oklch(0.65 0.02 250);
+  --accent: hsl(215 25% 28%);
+  --accent-foreground: oklch(0.95 0 0);
+  --destructive: hsl(0 72.2% 50.6%);
+  --destructive-foreground: oklch(0.65 0.24 25);
+  --border: hsl(215 20% 18%);
+  --input: hsl(215 20% 18%);
+  --ring: hsl(215 45% 62%);
+  --chart-1: hsl(215 45% 62%);
+  --chart-2: hsl(220 38% 55%);
+  --chart-3: hsl(210 32% 68%);
+  --chart-4: hsl(205 25% 78%);
+  --chart-5: hsl(218 52% 42%);
+  --sidebar: hsl(215 25% 12%);
+  --sidebar-foreground: oklch(0.95 0 0);
+  --sidebar-primary: oklch(0.75 0.1 190);
+  --sidebar-primary-foreground: oklch(0.12 0.01 250);
+  --sidebar-accent: oklch(0.2 0.01 250);
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(0.25 0.01 250);
+  --sidebar-ring: oklch(0.4 0.02 250);
+}
+
+@theme inline {
+  --font-sans: "DM Sans", "DM Sans Fallback";
+  --font-mono: "Geist Mono", "Geist Mono Fallback";
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --font-serif: "EB Garamond", "EB Garamond Fallback";
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Typography for blog posts */
+.prose {
+  @apply text-foreground leading-relaxed;
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  @apply font-bold text-foreground mt-8 mb-4;
+}
+
+.prose h1 {
+  @apply text-3xl;
+}
+
+.prose h2 {
+  @apply text-2xl border-b border-border pb-2;
+}
+
+.prose h3 {
+  @apply text-xl;
+}
+
+.prose h4 {
+  @apply text-lg;
+}
+
+.prose p {
+  @apply my-4;
+}
+
+.prose a {
+  @apply text-primary underline underline-offset-2 hover:text-primary/80;
+}
+
+.prose strong {
+  @apply font-semibold text-foreground;
+}
+
+.prose ul,
+.prose ol {
+  @apply my-4 pl-6;
+}
+
+.prose ul {
+  @apply list-disc;
+}
+
+.prose ol {
+  @apply list-decimal;
+}
+
+.prose li {
+  @apply my-2;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-primary pl-4 italic my-4 text-muted-foreground;
+}
+
+.prose hr {
+  @apply my-8 border-border;
+}
+
+/* Inline code styling */
+.prose :not(pre) > code {
+  @apply px-1.5 py-0.5 rounded bg-muted font-mono text-sm;
+}
+
+/* Code block styling with Shiki */
+.prose .code-block {
+  @apply my-6 rounded-lg overflow-hidden;
+}
+
+.prose .code-block pre {
+  @apply p-4 overflow-x-auto text-sm leading-relaxed;
+}
+
+.prose .code-block code {
+  @apply font-mono;
+}
+
+/* Proper Shiki dual theme CSS variable support for VS Code themes */
+html:not(.dark) .shiki,
+html:not(.dark) .shiki span {
+  color: var(--shiki-light) !important;
+  background-color: var(--shiki-light-bg) !important;
+  font-style: var(--shiki-light-font-style) !important;
+  font-weight: var(--shiki-light-font-weight) !important;
+  text-decoration: var(--shiki-light-text-decoration) !important;
+}
+
+html.dark .shiki,
+html.dark .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+/* Tables */
+.prose table {
+  @apply w-full my-6 border-collapse;
+}
+
+.prose th,
+.prose td {
+  @apply border border-border px-4 py-2 text-left;
+}
+
+.prose th {
+  @apply bg-muted font-semibold;
+}
+
+.prose img {
+  @apply rounded-lg my-6;
+}
