@@ -4,7 +4,7 @@ import { siteConfig } from "@/lib/site-config"
 import { readFileSync } from "fs"
 import { join } from "path"
 
-export const runtime = "nodejs"
+export const runtime = "edge"
 
 export async function generateStaticParams() {
   const posts = getAllPosts()
@@ -25,7 +25,8 @@ export async function GET(request: Request, { params }: { params: Promise<{ slug
   const templateBuffer = readFileSync(templatePath)
   const templateBase64 = `data:image/jpeg;base64,${templateBuffer.toString("base64")}`
 
-  return new ImageResponse(
+  // Create the ImageResponse
+  const imageResponse = new ImageResponse(
     <div
       style={{
         height: "100%",
@@ -56,7 +57,8 @@ export async function GET(request: Request, { params }: { params: Promise<{ slug
           left: 0,
           width: "100%",
           height: "100%",
-          background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%)",
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%)",
         }}
       />
       {/* Text content */}
@@ -127,4 +129,13 @@ export async function GET(request: Request, { params }: { params: Promise<{ slug
       height: 630,
     },
   )
+
+  // Ensure the browser displays inline (don't force download)
+  const headers = new Headers(imageResponse.headers)
+  headers.set("Content-Disposition", "inline")
+
+  return new Response(imageResponse.body, {
+    status: imageResponse.status,
+    headers,
+  })
 }
