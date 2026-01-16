@@ -25,7 +25,6 @@ export async function GET(request: Request, { params }: { params: Promise<{ slug
   const templateBuffer = readFileSync(templatePath)
   const templateBase64 = `data:image/jpeg;base64,${templateBuffer.toString("base64")}`
 
-  // Create the ImageResponse
   const imageResponse = new ImageResponse(
     <div
       style={{
@@ -61,7 +60,6 @@ export async function GET(request: Request, { params }: { params: Promise<{ slug
             "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%)",
         }}
       />
-      {/* Text content */}
       <div
         style={{
           display: "flex",
@@ -130,13 +128,24 @@ export async function GET(request: Request, { params }: { params: Promise<{ slug
     },
   )
 
-  // Copy headers and force inline content-disposition so browsers render rather than download.
-  const headers = new Headers(imageResponse.headers)
-  headers.set("Content-Disposition", "inline")
-  headers.set("Content-Type", "image/jpeg")
+  // Read the image bytes so we can set Content-Length and exact Content-Type.
+  const arrayBuffer = await imageResponse.arrayBuffer()
+  const buffer = Buffer.from(arrayBuffer)
 
-  return new Response(imageResponse.body, {
-    status: imageResponse.status,
+  // Use the original content-type if available; otherwise assume PNG.
+  const originalContentType = imageResponse.headers.get("content-type") || "image/png"
+  // Choose a sensible filename/extensions for Content-Disposition based on mime
+  const ext = originalContentType.includes("jpeg") || originalContentType.includes("jpg") ? "jpg" : "png"
+
+  const headers = new Headers()
+  headers.set("Content-Type", originalContentType)
+  headers.set("Content-Disposition", `inline; filename="og.${ext}"`)
+  headers.set("Content-Length", String(buffer.byteLength))
+  // optional: caching
+  headers.set("Cache-Control", "public, max-age=3600, stale-while-revalidate=86400")
+
+  return new Response(buffer, {
+    status: 200,
     headers,
   })
 }
