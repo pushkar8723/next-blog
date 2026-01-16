@@ -4,7 +4,7 @@ import { siteConfig } from "@/lib/site-config"
 import { readFileSync } from "fs"
 import { join } from "path"
 
-export const runtime = "edge"
+export const runtime = "nodejs"
 
 export async function generateStaticParams() {
   const posts = getAllPosts()
@@ -130,9 +130,10 @@ export async function GET(request: Request, { params }: { params: Promise<{ slug
     },
   )
 
-  // Ensure the browser displays inline (don't force download)
+  // Copy headers and force inline content-disposition so browsers render rather than download.
   const headers = new Headers(imageResponse.headers)
   headers.set("Content-Disposition", "inline")
+  headers.set("Content-Type", "image/jpeg")
 
   return new Response(imageResponse.body, {
     status: imageResponse.status,
