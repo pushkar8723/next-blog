@@ -97,7 +97,7 @@ export default function RootLayout({
                     </div>
                 </ThemeProvider>
                 <Analytics />
-                <MDXReloadClient />
+                {process.env.NODE_ENV === 'development' && <MDXReloadClient />}
             </body>
         </html>
     );

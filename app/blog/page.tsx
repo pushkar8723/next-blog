@@ -30,7 +30,7 @@ export default function BlogPage() {
                             href={`/blog/${post.slug}`}
                             className="group block mb-16"
                         >
-                            <article className="rounded-lg border border-transparent transition-colors hover:border-border">
+                            <article className="rounded-lg border border-transparent transition-colors">
                                 <div className="flex flex-col gap-4">
                                     <div className="flex-1">
                                         <h2 className="text-3xl font-semibold text-foreground text-primary">

@@ -27,6 +27,7 @@ export async function GET(request: NextRequest) {
                 { recursive: true },
                 (eventType, filename) => {
                     if (filename?.endsWith('.mdx')) {
+                        // eslint-disable-next-line no-console
                         console.log(`📝 MDX file changed: ${filename}`);
                         controller.enqueue(
                             encoder.encode(

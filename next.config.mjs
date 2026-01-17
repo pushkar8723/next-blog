@@ -16,15 +16,6 @@ const nextConfig = {
     },
     experimental: {
         mdxRs: true,
-        // Enable Turbopack watch for content directory
-        turbo: {
-            rules: {
-                '*.mdx': {
-                    loaders: ['next-mdx-remote/esm/loader'],
-                    as: '*.js',
-                },
-            },
-        },
     },
 };
 

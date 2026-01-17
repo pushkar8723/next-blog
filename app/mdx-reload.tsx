@@ -1,50 +1,38 @@
 'use client';
 
-/* eslint-disable no-console */
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 
 export function MDXReloadClient() {
-    const eventSourceRef = useRef<EventSource | null>(null);
+    const router = useRouter();
+    const pathname = usePathname();
 
     useEffect(() => {
         if (process.env.NODE_ENV !== 'development') {
-            return undefined;
+            return;
         }
 
-        // Prevent multiple connections
-        if (eventSourceRef.current) {
-            return undefined;
-        }
-
-        // Set up EventSource to listen for file changes
         const eventSource = new EventSource('/api/mdx-watch');
-        eventSourceRef.current = eventSource;
 
         eventSource.onmessage = event => {
             const data = JSON.parse(event.data);
-            if (data.type === 'change') {
-                console.log('📝 MDX file changed:', data.filename);
 
-                // Only reload if we're on a blog page
-                if (window.location.pathname.startsWith('/blog')) {
-                    window.location.reload();
+            if (data.type === 'change') {
+                // Only reload if we're on a blog post page
+                if (pathname.startsWith('/blog/')) {
+                    router.refresh();
                 }
             }
         };
 
-        eventSource.onerror = error => {
-            console.error('MDX watch error:', error);
+        eventSource.onerror = () => {
             eventSource.close();
-            eventSourceRef.current = null;
         };
 
         return () => {
-            if (eventSourceRef.current) {
-                eventSourceRef.current.close();
-                eventSourceRef.current = null;
-            }
+            eventSource.close();
         };
-    }, []); // Empty dependency array - only set up once
+    }, [router, pathname]);
 
     return null;
 }
