@@ -17,7 +17,7 @@ export function Header() {
                         href="/blog"
                         className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                     >
-                        Blogs
+                        Blog
                     </Link>
                     <Link
                         href="/projects"

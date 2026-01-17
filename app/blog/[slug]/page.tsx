@@ -12,9 +12,6 @@ interface BlogPostPageProps {
     params: Promise<{ slug: string }>;
 }
 
-// Force revalidation on every request in development
-export const revalidate = 0;
-
 export async function generateStaticParams() {
     const posts = getAllPosts();
     return posts.map(post => ({

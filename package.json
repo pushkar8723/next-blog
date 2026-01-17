@@ -3,9 +3,10 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "prebuild": "test -d app/api && mv app/api .api.backup || true",
-        "build": "next build",
-        "postbuild": "test -d .api.backup && mv .api.backup app/api || true",
+        "build:prepare": "rm -rf .next && (test -d app/api && mv app/api .api.backup || true)",
+        "build:next": "next build",
+        "build:restore": "test -d .api.backup && mv .api.backup app/api || true",
+        "build": "yarn build:prepare && yarn build:next && yarn build:restore",
         "dev": "next dev",
         "lint": "eslint .",
         "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,mdx,css,scss,html}\"",
