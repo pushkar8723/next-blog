@@ -18,13 +18,13 @@ export async function GET(
     { params }: { params: Promise<{ slug: string }> }
 ) {
     const { slug } = await params;
-    const post = getPostBySlug(slug);
+    const post = getPostBySlug(slug.split('.')[0]);
 
     if (!post) {
         return new Response('Not found', { status: 404 });
     }
 
-    const templatePath = join(process.cwd(), 'public/images/og-template.jpg');
+    const templatePath = join(process.cwd(), 'public/images/twitter-card.jpg');
     const templateBuffer = readFileSync(templatePath);
     const templateBase64 = `data:image/jpeg;base64,${templateBuffer.toString('base64')}`;
 
@@ -36,7 +36,7 @@ export async function GET(
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'flex-start',
-                justifyContent: 'flex-end',
+                justifyContent: 'flex-start',
                 position: 'relative',
             }}
         >
@@ -50,6 +50,7 @@ export async function GET(
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
+                    color: '#000',
                 }}
             />
             <div
@@ -59,8 +60,6 @@ export async function GET(
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    background:
-                        'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%)',
                 }}
             />
             <div
@@ -75,18 +74,8 @@ export async function GET(
             >
                 <div
                     style={{
-                        fontSize: '24px',
-                        color: '#e2e8f0',
-                        fontWeight: 500,
-                    }}
-                >
-                    {siteConfig.name}
-                </div>
-                <div
-                    style={{
                         fontSize: '56px',
-                        fontWeight: 700,
-                        color: '#ffffff',
+                        fontWeight: 900,
                         lineHeight: 1.2,
                         maxWidth: '900px',
                     }}
@@ -96,7 +85,6 @@ export async function GET(
                 <div
                     style={{
                         fontSize: '24px',
-                        color: '#cbd5e1',
                         maxWidth: '800px',
                         marginTop: '12px',
                     }}
@@ -110,7 +98,6 @@ export async function GET(
                         gap: '24px',
                         marginTop: '24px',
                         fontSize: '18px',
-                        color: '#94a3b8',
                     }}
                 >
                     <span>

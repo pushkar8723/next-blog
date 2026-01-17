@@ -32,7 +32,7 @@ export async function generateMetadata({
         return {};
     }
 
-    const ogImageUrl = `${siteConfig.url}/og/${post.slug}`;
+    const ogImageUrl = `${siteConfig.url}/og/${post.slug}.jpg`;
 
     return {
         title: post.title,
@@ -114,11 +114,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                             </div>
                         </div>
 
-                        {post.tags.length > 0 && (
+                        {post.keywords.length > 0 && (
                             <div className="mt-4 flex flex-wrap gap-2">
-                                {post.tags.map(tag => (
-                                    <Badge key={tag} variant="secondary">
-                                        {tag}
+                                {post.keywords.map(keyword => (
+                                    <Badge key={keyword} variant="secondary">
+                                        {keyword}
                                     </Badge>
                                 ))}
                             </div>
@@ -131,7 +131,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     />
                 </article>
 
-                <aside className="mt-12 lg:mt-0">
+                <aside className="mt-12 lg:sticky lg:top-24 lg:mt-0 lg:self-start">
                     <TableOfContents headings={post.headings} />
                 </aside>
             </div>

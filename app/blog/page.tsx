@@ -18,42 +18,29 @@ export default function BlogPage() {
         <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
             <header className="mb-12">
                 <h1 className="text-3xl font-bold tracking-tight text-foreground">
-                    Blog
+                    Blogs
                 </h1>
-                <p className="mt-2 text-lg text-muted-foreground">
-                    Thoughts on development, design, and technology.
-                </p>
             </header>
 
             {posts.length > 0 ? (
-                <div className="space-y-8">
+                <div className="max-w-3xl">
                     {posts.map(post => (
                         <Link
                             key={post.slug}
                             href={`/blog/${post.slug}`}
-                            className="group block"
+                            className="group block mb-16"
                         >
-                            <article className="rounded-lg border border-transparent p-6 transition-colors hover:border-border hover:bg-muted/50">
-                                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                            <article className="rounded-lg border border-transparent transition-colors hover:border-border">
+                                <div className="flex flex-col gap-4">
                                     <div className="flex-1">
-                                        <h2 className="text-xl font-semibold text-foreground group-hover:text-primary">
+                                        <h2 className="text-3xl font-semibold text-foreground text-primary">
                                             {post.title}
                                         </h2>
-                                        <p className="mt-2 text-muted-foreground">
+                                        <p className="mt-2 text-foreground">
                                             {post.description}
                                         </p>
-                                        <div className="mt-4 flex flex-wrap items-center gap-3">
-                                            {post.tags.slice(0, 3).map(tag => (
-                                                <Badge
-                                                    key={tag}
-                                                    variant="outline"
-                                                >
-                                                    {tag}
-                                                </Badge>
-                                            ))}
-                                        </div>
                                     </div>
-                                    <div className="flex shrink-0 flex-col items-end text-sm text-muted-foreground">
+                                    <div className="flex shrink-0 flex-row text-sm text-muted-foreground">
                                         <time>
                                             {new Date(
                                                 post.date
@@ -63,9 +50,20 @@ export default function BlogPage() {
                                                 day: 'numeric',
                                             })}
                                         </time>
-                                        <span className="mt-1">
-                                            {post.readingTime}
-                                        </span>
+                                        <span className="mx-2">{` • `}</span>
+                                        <span>{post.readingTime}</span>
+                                    </div>
+                                    <div>
+                                        <div className="flex flex-wrap items-center gap-3">
+                                            {post.keywords.map(tag => (
+                                                <Badge
+                                                    key={tag}
+                                                    variant="secondary"
+                                                >
+                                                    {tag}
+                                                </Badge>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             </article>

@@ -9,7 +9,7 @@ export interface BlogPost {
     description: string;
     date: string;
     author: string;
-    tags: string[];
+    keywords: string[];
     readingTime: string;
     content: string;
     headings: { id: string; text: string; level: number }[];
@@ -64,7 +64,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
             ? new Date(data.date).toISOString()
             : new Date().toISOString(),
         author: data.author || 'Anonymous',
-        tags: data.tags || [],
+        keywords: data.keywords?.split(/,\s*/) || [],
         readingTime: stats.text,
         content,
         headings,

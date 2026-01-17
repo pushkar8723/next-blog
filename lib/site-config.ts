@@ -1,6 +1,6 @@
 export const siteConfig = {
-    name: 'Pushkar Anand',
-    title: 'Passionate JS Developer, now using AI',
+    name: 'Abstracted.in',
+    title: 'Pushkar Anand',
     description: 'I write blogs on frontend stuff.',
     url:
         process.env.NEXT_PUBLIC_SITE_URL ||
