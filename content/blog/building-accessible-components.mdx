@@ -1,12 +1,10 @@
 ---
-title: "Building Accessible React Components"
-description: "Learn how to create inclusive web experiences by building accessible React components from the ground up."
-date: "2025-01-05"
-author: "Your Name"
-tags: ["Accessibility", "React", "Web Development", "A11y"]
+title: 'Building Accessible React Components'
+description: 'Learn how to create inclusive web experiences by building accessible React components from the ground up.'
+date: '2025-01-05'
+author: 'Your Name'
+tags: ['Accessibility', 'React', 'Web Development', 'A11y']
 ---
-
-# Building Accessible React Components
 
 Web accessibility ensures that everyone, including people with disabilities, can use your website. Let's explore how to build accessible React components.
 
@@ -38,21 +36,21 @@ Ensure all interactive elements are keyboard accessible:
 
 ```tsx
 function Menu() {
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     switch (e.key) {
-      case "ArrowDown":
-        setActiveIndex((prev) => Math.min(prev + 1, items.length - 1))
-        break
-      case "ArrowUp":
-        setActiveIndex((prev) => Math.max(prev - 1, 0))
-        break
-      case "Enter":
-        selectItem(activeIndex)
-        break
+      case 'ArrowDown':
+        setActiveIndex(prev => Math.min(prev + 1, items.length - 1));
+        break;
+      case 'ArrowUp':
+        setActiveIndex(prev => Math.max(prev - 1, 0));
+        break;
+      case 'Enter':
+        selectItem(activeIndex);
+        break;
     }
-  }
+  };
 
   return (
     <ul role="menu" onKeyDown={handleKeyDown}>
@@ -66,7 +64,7 @@ function Menu() {
         </li>
       ))}
     </ul>
-  )
+  );
 }
 ```
 
@@ -89,7 +87,7 @@ function Modal({ isOpen, onClose, title, children }) {
         ×
       </button>
     </div>
-  )
+  );
 }
 ```
 
@@ -99,13 +97,13 @@ Manage focus appropriately:
 
 ```tsx
 function Dialog({ isOpen, onClose }) {
-  const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (isOpen) {
-      closeButtonRef.current?.focus()
+      closeButtonRef.current?.focus();
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   return (
     <div role="dialog">
@@ -113,7 +111,7 @@ function Dialog({ isOpen, onClose }) {
         Close
       </button>
     </div>
-  )
+  );
 }
 ```
 

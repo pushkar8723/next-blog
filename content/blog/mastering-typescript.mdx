@@ -1,12 +1,10 @@
 ---
-title: "Mastering TypeScript: Tips and Tricks"
-description: "Level up your TypeScript skills with these practical tips, patterns, and best practices."
-date: "2025-01-10"
-author: "Your Name"
-tags: ["TypeScript", "JavaScript", "Programming", "Best Practices"]
+title: 'Mastering TypeScript: Tips and Tricks'
+description: 'Level up your TypeScript skills with these practical tips, patterns, and best practices.'
+date: '2025-01-10'
+author: 'Your Name'
+tags: ['TypeScript', 'JavaScript', 'Programming', 'Best Practices']
 ---
-
-# Mastering TypeScript: Tips and Tricks
 
 TypeScript has become the standard for building robust JavaScript applications. Here are some tips to help you write better TypeScript code.
 
@@ -16,10 +14,10 @@ TypeScript is smart about inferring types. You don't always need explicit annota
 
 ```typescript
 // TypeScript infers this is a number
-const count = 10
+const count = 10;
 
 // TypeScript infers this is a string array
-const names = ["Alice", "Bob", "Charlie"]
+const names = ['Alice', 'Bob', 'Charlie'];
 ```
 
 ## Utility Types
@@ -32,12 +30,12 @@ Make all properties optional:
 
 ```typescript
 interface User {
-  name: string
-  email: string
-  age: number
+  name: string;
+  email: string;
+  age: number;
 }
 
-type PartialUser = Partial<User>
+type PartialUser = Partial<User>;
 // All properties are now optional
 ```
 
@@ -46,8 +44,8 @@ type PartialUser = Partial<User>
 Select or exclude specific properties:
 
 ```typescript
-type UserName = Pick<User, "name">
-type UserWithoutAge = Omit<User, "age">
+type UserName = Pick<User, 'name'>;
+type UserWithoutAge = Omit<User, 'age'>;
 ```
 
 ## Generic Functions
@@ -56,11 +54,11 @@ Generics allow you to write reusable, type-safe code:
 
 ```typescript
 function firstElement<T>(arr: T[]): T | undefined {
-  return arr[0]
+  return arr[0];
 }
 
-const first = firstElement([1, 2, 3]) // number
-const firstStr = firstElement(["a", "b"]) // string
+const first = firstElement([1, 2, 3]); // number
+const firstStr = firstElement(['a', 'b']); // string
 ```
 
 ## Type Guards
@@ -69,13 +67,13 @@ Use type guards for runtime type checking:
 
 ```typescript
 function isString(value: unknown): value is string {
-  return typeof value === "string"
+  return typeof value === 'string';
 }
 
 function processValue(value: unknown) {
   if (isString(value)) {
     // TypeScript knows value is a string here
-    console.log(value.toUpperCase())
+    console.log(value.toUpperCase());
   }
 }
 ```

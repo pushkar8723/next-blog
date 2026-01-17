@@ -1,72 +1,104 @@
-import type React from "react"
-import type { Metadata } from "next"
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import type React from 'react';
+import type { Metadata } from 'next';
 
-import { Analytics } from "@vercel/analytics/next"
-import { ThemeProvider } from "@/components/theme-provider"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { siteConfig } from "@/lib/site-config"
-import "./globals.css"
-
-import { Geist_Mono, DM_Sans as V0_Font_DM_Sans, Geist_Mono as V0_Font_Geist_Mono, EB_Garamond as V0_Font_EB_Garamond } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next';
+import { ThemeProvider } from '@/components/theme-provider';
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
+import { siteConfig } from '@/lib/site-config';
+import {
+    Geist_Mono,
+    DM_Sans as V0_Font_DM_Sans,
+    Geist_Mono as V0_Font_Geist_Mono,
+    EB_Garamond as V0_Font_EB_Garamond,
+} from 'next/font/google';
+import { MDXReloadClient } from './mdx-reload';
+import './globals.css';
 
 // Initialize fonts
-const _dmSans = V0_Font_DM_Sans({ subsets: ['latin'], weight: ["100","200","300","400","500","600","700","800","900","1000"] })
-const _geistMono = V0_Font_Geist_Mono({ subsets: ['latin'], weight: ["100","200","300","400","500","600","700","800","900"] })
-const _ebGaramond = V0_Font_EB_Garamond({ subsets: ['latin'], weight: ["400","500","600","700","800"] })
+const dmSans = V0_Font_DM_Sans({
+    subsets: ['latin'],
+    weight: [
+        '100',
+        '200',
+        '300',
+        '400',
+        '500',
+        '600',
+        '700',
+        '800',
+        '900',
+        '1000',
+    ],
+});
+const geistMono = V0_Font_Geist_Mono({
+    subsets: ['latin'],
+    weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+});
+const ebGaramond = V0_Font_EB_Garamond({
+    subsets: ['latin'],
+    weight: ['400', '500', '600', '700', '800'],
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
-  title: {
-    default: `${siteConfig.name} - ${siteConfig.title}`,
-    template: `%s | ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  authors: [{ name: siteConfig.author.name }],
-  creator: siteConfig.author.name,
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: siteConfig.url,
-    title: siteConfig.name,
-    description: siteConfig.description,
-    siteName: siteConfig.name,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.description,
-    creator: siteConfig.author.twitter,
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-  alternates: {
-    types: {
-      "application/rss+xml": "/rss.xml",
+    metadataBase: new URL(siteConfig.url),
+    title: {
+        default: `${siteConfig.name} - ${siteConfig.title}`,
+        template: `%s | ${siteConfig.name}`,
     },
-  },
-    generator: 'v0.app'
-}
+    description: siteConfig.description,
+    authors: [{ name: siteConfig.author.name }],
+    creator: siteConfig.author.name,
+    openGraph: {
+        type: 'website',
+        locale: 'en_US',
+        url: siteConfig.url,
+        title: siteConfig.name,
+        description: siteConfig.description,
+        siteName: siteConfig.name,
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: siteConfig.name,
+        description: siteConfig.description,
+        creator: siteConfig.author.twitter,
+    },
+    robots: {
+        index: true,
+        follow: true,
+    },
+    alternates: {
+        types: {
+            'application/rss+xml': '/rss.xml',
+        },
+    },
+    generator: 'v0.app',
+};
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="font-sans antialiased">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <div className="flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
-        </ThemeProvider>
-        <Analytics />
-      </body>
-    </html>
-  )
+    return (
+        <html lang="en" suppressHydrationWarning>
+            <body className="font-sans antialiased">
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <div className="flex min-h-screen flex-col">
+                        <Header />
+                        <main className="flex-1">{children}</main>
+                        <Footer />
+                    </div>
+                </ThemeProvider>
+                <Analytics />
+                <MDXReloadClient />
+            </body>
+        </html>
+    );
 }

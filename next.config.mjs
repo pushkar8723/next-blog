@@ -1,35 +1,31 @@
-import remarkGfm from "remark-gfm"
-import rehypeShiki from "rehype-shiki"
+import remarkGfm from 'remark-gfm';
+import rehypeShiki from 'rehype-shiki';
+
+const isDev = process.env.NODE_ENV === 'development';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",
-  pageExtensions: ["js", "jsx", "ts", "tsx"],
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  images: {
-    unoptimized: true,
-  },
-  experimental: {
-    mdxRs: true,
-  },
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.mdx?$/,
-      use: [
-        {
-          loader: "next-mdx-remote/esm/loader",
-          options: {
-            remarkPlugins: [remarkGfm],
-            rehypePlugins: [rehypeShiki],
-          },
+    // Only use static export for production builds
+    ...(isDev ? {} : { output: 'export' }),
+    pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+    typescript: {
+        ignoreBuildErrors: true,
+    },
+    images: {
+        unoptimized: true,
+    },
+    experimental: {
+        mdxRs: true,
+        // Enable Turbopack watch for content directory
+        turbo: {
+            rules: {
+                '*.mdx': {
+                    loaders: ['next-mdx-remote/esm/loader'],
+                    as: '*.js',
+                },
+            },
         },
-      ],
-    })
-    return config
-  },
-  turbopack: {},
-}
+    },
+};
 
-export default nextConfig
+export default nextConfig;
