@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { getPostBySlug, getAllPosts } from '@/lib/blog';
+import { getProjectBySlug, getAllProjects } from '@/lib/projects';
 import { siteConfig } from '@/lib/site-config';
 import { readFileSync } from 'fs';
 import { join } from 'path';
@@ -8,9 +9,25 @@ export const runtime = 'nodejs';
 
 export async function generateStaticParams() {
     const posts = getAllPosts();
-    return posts.map(post => ({
-        slug: `${post.slug}.jpg`,
+    const projects = getAllProjects();
+
+    const postParams = posts.map(post => ({
+        slug: `blog-${post.slug}.jpg`,
     }));
+
+    const projectParams = projects.map(project => ({
+        slug: `project-${project.slug}.jpg`,
+    }));
+
+    // Add static pages
+    const staticPages = [
+        { slug: 'about.jpg' },
+        { slug: 'blog.jpg' },
+        { slug: 'projects.jpg' },
+        { slug: 'home.jpg' },
+    ];
+
+    return [...postParams, ...projectParams, ...staticPages];
 }
 
 export async function GET(
@@ -18,9 +35,46 @@ export async function GET(
     { params }: { params: Promise<{ slug: string }> }
 ) {
     const { slug } = await params;
-    const post = getPostBySlug(slug.split('.')[0]);
+    const cleanSlug = slug.split('.')[0];
 
-    if (!post) {
+    let title = '';
+    let description = '';
+    let date = '';
+    let readingTime = '';
+
+    // Check if it's a blog post
+    if (cleanSlug.startsWith('blog-')) {
+        const postSlug = cleanSlug.replace('blog-', '');
+        const post = getPostBySlug(postSlug);
+
+        if (post) {
+            title = post.title;
+            description = post.description;
+            date = post.date;
+            readingTime = post.readingTime;
+        }
+    }
+    // Check if it's a project
+    else if (cleanSlug.startsWith('project-')) {
+        const projectSlug = cleanSlug.replace('project-', '');
+        const project = getProjectBySlug(projectSlug);
+
+        if (project) {
+            title = project.title;
+            description = project.description;
+        }
+    }
+    // Otherwise, it's a generic page
+    else {
+        // Capitalize and format the slug as title
+        title = cleanSlug
+            .split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+        description = siteConfig.name;
+    }
+
+    if (!title) {
         return new Response('Not found', { status: 404 });
     }
 
@@ -80,7 +134,7 @@ export async function GET(
                         maxWidth: '900px',
                     }}
                 >
-                    {post.title}
+                    {title}
                 </div>
                 <div
                     style={{
@@ -89,27 +143,33 @@ export async function GET(
                         marginTop: '12px',
                     }}
                 >
-                    {post.description}
+                    {description}
                 </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '24px',
-                        marginTop: '24px',
-                        fontSize: '18px',
-                    }}
-                >
-                    <span>
-                        {new Date(post.date).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                        })}
-                    </span>
-                    <span>•</span>
-                    <span>{post.readingTime}</span>
-                </div>
+                {date && (
+                    <div
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '24px',
+                            marginTop: '24px',
+                            fontSize: '18px',
+                        }}
+                    >
+                        <span>
+                            {new Date(date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                            })}
+                        </span>
+                        {readingTime && (
+                            <>
+                                <span>•</span>
+                                <span>{readingTime}</span>
+                            </>
+                        )}
+                    </div>
+                )}
             </div>
         </div>,
         {

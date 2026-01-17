@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { ExternalLink, Github } from 'lucide-react';
+import Link from 'next/link';
 import {
     Card,
     CardContent,
@@ -8,63 +8,40 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { getAllProjects } from '@/lib/projects';
+import GitHubButton from '@/components/ui/githubButton';
+import { siteConfig } from '@/lib/site-config';
+
+const ogImageUrl = `${siteConfig.url}/og/projects.jpg`;
 
 export const metadata: Metadata = {
     title: 'Projects',
     description: "A collection of projects I've worked on.",
+    openGraph: {
+        type: 'article',
+        title: 'Projects',
+        description: "A collection of projects I've worked on.",
+        url: `${siteConfig.url}/projects`,
+        images: [
+            {
+                url: ogImageUrl,
+                width: 1200,
+                height: 630,
+                alt: 'Projects',
+            },
+        ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Projects',
+        description: "A collection of projects I've worked on.",
+        images: [ogImageUrl],
+        creator: siteConfig.author.twitter,
+    },
 };
 
-const projects = [
-    {
-        title: 'Project One',
-        description:
-            'A full-stack web application built with Next.js and TypeScript. Features include authentication, real-time updates, and a modern UI.',
-        tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Prisma'],
-        github: '#',
-        demo: '#',
-    },
-    {
-        title: 'Project Two',
-        description:
-            'An open-source library for building accessible React components. Follows WAI-ARIA guidelines and supports keyboard navigation.',
-        tags: ['React', 'Accessibility', 'TypeScript', 'Storybook'],
-        github: '#',
-        demo: '#',
-    },
-    {
-        title: 'Project Three',
-        description:
-            'A CLI tool for automating development workflows. Supports multiple templates and integrates with popular tools.',
-        tags: ['Node.js', 'CLI', 'Automation', 'Open Source'],
-        github: '#',
-    },
-    {
-        title: 'Project Four',
-        description:
-            'A design system built with React and Tailwind CSS. Includes a comprehensive component library and documentation.',
-        tags: ['React', 'Design System', 'Tailwind CSS', 'Figma'],
-        github: '#',
-        demo: '#',
-    },
-    {
-        title: 'Project Five',
-        description:
-            'A real-time collaboration tool built with WebSockets. Features include live cursors, presence indicators, and conflict resolution.',
-        tags: ['WebSockets', 'Real-time', 'React', 'Node.js'],
-        github: '#',
-        demo: '#',
-    },
-    {
-        title: 'Project Six',
-        description:
-            'A mobile-first progressive web app with offline support. Built with service workers and IndexedDB for data persistence.',
-        tags: ['PWA', 'Service Workers', 'IndexedDB', 'React'],
-        github: '#',
-    },
-];
-
 export default function ProjectsPage() {
+    const projects = getAllProjects();
     return (
         <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
             <header className="mb-12">
@@ -79,14 +56,19 @@ export default function ProjectsPage() {
 
             <div className="grid gap-6 sm:grid-cols-2">
                 {projects.map(project => (
-                    <Card key={project.title} className="flex flex-col">
+                    <Card key={project.slug} className="flex flex-col">
                         <CardHeader>
-                            <CardTitle className="text-xl">
-                                {project.title}
-                            </CardTitle>
-                            <CardDescription className="text-base">
-                                {project.description}
-                            </CardDescription>
+                            <Link href={`/projects/${project.slug}`}>
+                                <CardTitle className="text-xl hover:text-primary transition-colors">
+                                    {project.title}
+                                </CardTitle>
+                            </Link>
+                            <CardDescription
+                                className="text-base"
+                                dangerouslySetInnerHTML={{
+                                    __html: project.description,
+                                }}
+                            />
                         </CardHeader>
                         <CardContent className="mt-auto">
                             <div className="mb-4 flex flex-wrap gap-2">
@@ -98,28 +80,7 @@ export default function ProjectsPage() {
                             </div>
                             <div className="flex gap-3">
                                 {project.github && (
-                                    <Button variant="outline" size="sm" asChild>
-                                        <a
-                                            href={project.github}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <Github className="mr-2 h-4 w-4" />
-                                            Code
-                                        </a>
-                                    </Button>
-                                )}
-                                {project.demo && (
-                                    <Button variant="outline" size="sm" asChild>
-                                        <a
-                                            href={project.demo}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <ExternalLink className="mr-2 h-4 w-4" />
-                                            Demo
-                                        </a>
-                                    </Button>
+                                    <GitHubButton repo={project.github} />
                                 )}
                             </div>
                         </CardContent>

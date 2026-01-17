@@ -2,10 +2,34 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getAllPosts } from '@/lib/blog';
 import { Badge } from '@/components/ui/badge';
+import { siteConfig } from '@/lib/site-config';
+
+const ogImageUrl = `${siteConfig.url}/og/blog.jpg`;
 
 export const metadata: Metadata = {
     title: 'Blog',
     description: 'Thoughts on development, design, and technology.',
+    openGraph: {
+        type: 'article',
+        title: 'Blog',
+        description: 'My thoughts on development, design, and technology.',
+        url: `${siteConfig.url}/blog`,
+        images: [
+            {
+                url: ogImageUrl,
+                width: 1200,
+                height: 630,
+                alt: 'Blog',
+            },
+        ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Blog',
+        description: 'My thoughts on development, design, and technology.',
+        images: [ogImageUrl],
+        creator: siteConfig.author.twitter,
+    },
 };
 
 export default function BlogPage() {

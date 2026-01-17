@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     }
 
     const encoder = new TextEncoder();
-    const contentDir = join(process.cwd(), 'content/blog');
+    const contentDir = join(process.cwd(), 'content');
 
     const stream = new ReadableStream({
         start(controller) {

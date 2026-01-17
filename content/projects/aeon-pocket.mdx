@@ -4,6 +4,7 @@ description: A **depricated** web-wallet for AEON Cryptocurrency
 github: AeonPocket/web-wallet
 parent: /projects/
 priority: 3
+tags: Cryptocurrency, Web Wallet, WebAssembly, JavaScript
 ---
 
 I collaborated with [MehKnown](https://twitter.com/Delta_Maniac) on this project. I think it was his idea.
@@ -17,8 +18,8 @@ hashing algorithm so that it can be mined on CPU and doesn't necessarily need a 
 
 I and _MehKnown_ explored AEON for a few weeks and came to know about the web wallet bounty and thought 'we can do that!'.
 Later realizing that it isn't just calling a few APIs from the UI kind of project. AEON (like Monero) works with
-two cryptographic keys. One for identifying your transactions (known as view key) and another for sending some AEON to 
-another wallet (known as spend key). Each of these keys comprises public and private keys. 
+two cryptographic keys. One for identifying your transactions (known as view key) and another for sending some AEON to
+another wallet (known as spend key). Each of these keys comprises public and private keys.
 
 The address of the wallet is a combination of public view key and public spend key. To identify if a transaction in a block
 in the blockchain belongs to your wallet, you need to use your private view key. And to send some amount of AEON to

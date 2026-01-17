@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight, Github, Linkedin, Twitter } from 'lucide-react';
 import { getAllPosts } from '@/lib/blog';
+import { getAllProjects } from '@/lib/projects';
 import { siteConfig } from '@/lib/site-config';
 import { Button } from '@/components/ui/button';
 import {
@@ -20,32 +21,39 @@ import {
     faLinkedin,
     faXTwitter,
 } from '@fortawesome/free-brands-svg-icons';
+import { Metadata } from 'next';
 
-const projects = [
-    {
-        title: 'Project One',
-        description:
-            'A full-stack web application built with Next.js and TypeScript.',
-        tags: ['Next.js', 'TypeScript', 'Tailwind'],
-        link: '#',
+const ogImageUrl = `${siteConfig.url}/og/home.jpg`;
+
+export const metadata: Metadata = {
+    title: 'Home',
+    description: 'Welcome to portfolio.',
+    openGraph: {
+        type: 'article',
+        title: 'Home',
+        description: 'Welcome to portfolio.',
+        url: `${siteConfig.url}/`,
+        images: [
+            {
+                url: ogImageUrl,
+                width: 1200,
+                height: 630,
+                alt: 'Home',
+            },
+        ],
     },
-    {
-        title: 'Project Two',
-        description:
-            'An open-source library for building accessible React components.',
-        tags: ['React', 'Accessibility', 'Open Source'],
-        link: '#',
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Home',
+        description: 'Welcome to portfolio.',
+        images: [ogImageUrl],
+        creator: siteConfig.author.twitter,
     },
-    {
-        title: 'Project Three',
-        description: 'A CLI tool for automating development workflows.',
-        tags: ['Node.js', 'CLI', 'Automation'],
-        link: '#',
-    },
-];
+};
 
 export default function HomePage() {
     const posts = getAllPosts().slice(0, 3);
+    const projects = getAllProjects().slice(0, 3);
 
     return (
         <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:py-24">
@@ -187,28 +195,35 @@ export default function HomePage() {
 
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {projects.map(project => (
-                        <Card
-                            key={project.title}
-                            className="group transition-colors hover:border-primary/50"
+                        <Link
+                            key={project.slug}
+                            href={`/projects/${project.slug}`}
                         >
-                            <CardHeader>
-                                <CardTitle className="text-lg group-hover:text-primary">
-                                    {project.title}
-                                </CardTitle>
-                                <CardDescription>
-                                    {project.description}
-                                </CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="flex flex-wrap gap-2">
-                                    {project.tags.map(tag => (
-                                        <Badge key={tag} variant="secondary">
-                                            {tag}
-                                        </Badge>
-                                    ))}
-                                </div>
-                            </CardContent>
-                        </Card>
+                            <Card className="group transition-colors hover:border-primary/50 h-full">
+                                <CardHeader>
+                                    <CardTitle className="text-lg group-hover:text-primary">
+                                        {project.title}
+                                    </CardTitle>
+                                    <CardDescription
+                                        dangerouslySetInnerHTML={{
+                                            __html: project.description,
+                                        }}
+                                    />
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="flex flex-wrap gap-2">
+                                        {project.tags.map(tag => (
+                                            <Badge
+                                                key={tag}
+                                                variant="secondary"
+                                            >
+                                                {tag}
+                                            </Badge>
+                                        ))}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </Link>
                     ))}
                 </div>
             </section>

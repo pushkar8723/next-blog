@@ -5,8 +5,6 @@ const isDev = process.env.NODE_ENV === 'development';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // Only use static export for production builds
-    ...(isDev ? {} : { output: 'export' }),
     pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
     typescript: {
         ignoreBuildErrors: true,

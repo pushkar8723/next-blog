@@ -30,7 +30,7 @@ export async function generateMetadata({
         return {};
     }
 
-    const ogImageUrl = `${siteConfig.url}/og/${post.slug}.jpg`;
+    const ogImageUrl = `${siteConfig.url}/og/blog-${post.slug}.jpg`;
 
     return {
         title: post.title,

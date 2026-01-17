@@ -14,7 +14,7 @@
     --primary-foreground: oklch(0.99 0 0);
     --secondary: #ccc;
     --secondary-foreground: oklch(0.25 0 0);
-    --muted: oklch(0.96 0.005 250);
+    --muted: oklch(100% 0.00011 271.152);
     --muted-foreground: #555;
     --accent: oklch(87.713% 0.00363 220.776);
     --accent-foreground: oklch(0.25 0 0);
@@ -42,7 +42,7 @@
 .dark {
     --background: #31313c;
     --foreground: oklch(100% 0.00011 271.152);
-    --card: #3f3f4b;
+    --card: #252531;
     --card-foreground: oklch(0.95 0 0);
     --popover: hsl(0, 0%, 0%);
     --popover-foreground: oklch(0.95 0 0);

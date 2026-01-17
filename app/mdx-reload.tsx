@@ -19,7 +19,10 @@ export function MDXReloadClient() {
 
             if (data.type === 'change') {
                 // Only reload if we're on a blog post page
-                if (pathname.startsWith('/blog/')) {
+                if (
+                    pathname.startsWith('/blog/') ||
+                    pathname.startsWith('/projects/')
+                ) {
                     router.refresh();
                 }
             }
