@@ -11,6 +11,15 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import Bio from '@/components/bio';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faFacebook,
+    faGithub,
+    faInstagram,
+    faLinkedin,
+    faXTwitter,
+} from '@fortawesome/free-brands-svg-icons';
 
 const projects = [
     {
@@ -45,19 +54,40 @@ export default function HomePage() {
                 <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
                     {siteConfig.name}
                 </h1>
-                <p className="mt-2 text-xl text-primary">{siteConfig.title}</p>
-                <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-                    {siteConfig.description}
-                </p>
+                <Bio />
 
-                <div className="mt-8 flex items-center gap-4">
+                <div className="mt-8 flex items-center gap-4 flex-wrap">
+                    <a
+                        href={siteConfig.links.facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                        <FontAwesomeIcon
+                            icon={faFacebook}
+                            className="h-5 w-5"
+                        />
+                        <span className="text-sm">Facebook</span>
+                    </a>
+                    <a
+                        href={siteConfig.links.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                        <FontAwesomeIcon
+                            icon={faInstagram}
+                            className="h-5 w-5"
+                        />
+                        <span className="text-sm">Instagram</span>
+                    </a>
                     <a
                         href={siteConfig.links.github}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
                     >
-                        <Github className="h-5 w-5" />
+                        <FontAwesomeIcon icon={faGithub} className="h-5 w-5" />
                         <span className="text-sm">GitHub</span>
                     </a>
                     <a
@@ -66,8 +96,11 @@ export default function HomePage() {
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
                     >
-                        <Twitter className="h-5 w-5" />
-                        <span className="text-sm">Twitter</span>
+                        <FontAwesomeIcon
+                            icon={faXTwitter}
+                            className="h-5 w-5"
+                        />
+                        <span className="text-sm">X (formerly Twitter)</span>
                     </a>
                     <a
                         href={siteConfig.links.linkedin}
@@ -75,7 +108,10 @@ export default function HomePage() {
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
                     >
-                        <Linkedin className="h-5 w-5" />
+                        <FontAwesomeIcon
+                            icon={faLinkedin}
+                            className="h-5 w-5"
+                        />
                         <span className="text-sm">LinkedIn</span>
                     </a>
                 </div>
@@ -84,7 +120,7 @@ export default function HomePage() {
             {/* Recent Writing Section */}
             <section className="mb-20">
                 <div className="mb-8 flex items-center justify-between">
-                    <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+                    <h2 className="text-3xl font-semibold tracking-tight text-foreground">
                         Recent Writing
                     </h2>
                     <Link href="/blog">
@@ -95,16 +131,16 @@ export default function HomePage() {
                 </div>
 
                 {posts.length > 0 ? (
-                    <div className="space-y-6">
+                    <div className="space-y-12">
                         {posts.map(post => (
                             <Link
                                 key={post.slug}
                                 href={`/blog/${post.slug}`}
                                 className="group block"
                             >
-                                <article className="flex flex-col gap-2 rounded-lg border border-transparent p-4 transition-colors hover:border-border hover:bg-muted/50 sm:flex-row sm:items-center sm:justify-between">
+                                <article className="flex flex-col gap-2 rounded-lg border border-transparent transition-colors">
                                     <div>
-                                        <h3 className="font-medium text-foreground group-hover:text-primary">
+                                        <h3 className="font-bold text-primary text-xl">
                                             {post.title}
                                         </h3>
                                         <p className="mt-1 text-sm text-muted-foreground">
@@ -139,7 +175,7 @@ export default function HomePage() {
             {/* Projects Section */}
             <section>
                 <div className="mb-8 flex items-center justify-between">
-                    <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+                    <h2 className="text-3xl font-semibold tracking-tight text-foreground">
                         Projects
                     </h2>
                     <Link href="/projects">

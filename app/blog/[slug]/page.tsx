@@ -7,6 +7,7 @@ import { siteConfig } from '@/lib/site-config';
 import { TableOfContents } from '@/components/table-of-contents';
 import { Badge } from '@/components/ui/badge';
 import { parseMarkdown } from '@/lib/markdown';
+import Bio from '@/components/bio';
 
 interface BlogPostPageProps {
     params: Promise<{ slug: string }>;
@@ -126,6 +127,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         className="prose max-w-none"
                         dangerouslySetInnerHTML={{ __html: htmlContent }}
                     />
+
+                    <hr className="my-12 border-border" />
+
+                    <Bio />
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <iframe
+                            title="Subscribe to my blog"
+                            src="https://pushkar8723.substack.com/embed"
+                            width="480"
+                            height="150"
+                            style={{ border: 'none', borderRadius: '5px' }}
+                        />
+                    </div>
                 </article>
 
                 <aside className="mt-12 lg:sticky lg:top-24 lg:mt-0 lg:self-start">

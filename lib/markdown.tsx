@@ -40,7 +40,7 @@ export async function parseMarkdown(content: string): Promise<string> {
             code({ text, lang }) {
                 // Parse language and line highlighting syntax (e.g., "typescript{3-9}")
                 const langMatch = lang?.match(/^(\w+)(?:\{([^}]+)\})?/);
-                const language = langMatch?.[1] || 'text';
+                const language = langMatch?.[1].toLowerCase() || 'text';
                 const highlightLines = langMatch?.[2] || '';
 
                 const validLang = highlighter

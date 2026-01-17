@@ -1,8 +1,8 @@
 ---
 title: Learning SVG animation to spice up my GitHub Profile
-date: "2020-07-19"
+date: '2020-07-19'
 description: "Coz nothing says 'professional' better than a flashing animation."
-keywords: "SVG,Animation,CSS,GitHub"
+keywords: 'SVG,Animation,CSS,GitHub'
 featured: true
 ---
 
@@ -19,14 +19,17 @@ it onto a page. But I have never delved into how to create one from scratch and 
 With nothing better to do, I started googling and was surprised to find that MDN has elaborate
 [documentation](https://developer.mozilla.org/en-US/docs/Web/SVG/Element) on SVG elements. Turns out, it
 is quite simple to add basic shapes. There are tags like `rect`, `circle`, `polygon`, `line`, and `polyline`,
-etc. Then simply write CSS to animate it. 
+etc. Then simply write CSS to animate it.
 
 Neat! 👍
 
 So now I can just move a logo on the screen and have boomers look at it for hours! 💪
 
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/2996493/87858782-0cf16480-c94e-11ea-8a96-b74bd009122d.gif" alt="office reference" />
+  <img
+    src="https://user-images.githubusercontent.com/2996493/87858782-0cf16480-c94e-11ea-8a96-b74bd009122d.gif"
+    alt="office reference"
+  />
 </p>
 
 But I digress. Back to animating SVG. Above mentioned shapes might be more than sufficient for a creative
@@ -60,23 +63,23 @@ We only need to learn the first three. Each command is denoted with a letter fol
 points (x-y coordinates).
 
 <p align="center">
-    <img
-        src="https://user-images.githubusercontent.com/2996493/87868476-8c654f00-c9b3-11ea-9373-1510afac2b68.png"
-        alt="move"
-    />
+  <img
+    src="https://user-images.githubusercontent.com/2996493/87868476-8c654f00-c9b3-11ea-9373-1510afac2b68.png"
+    alt="move"
+  />
 </p>
 
-*MoveTo* command is denoted by letter `M` or `m` followed by the point. So a `M10,10` would move the current
+_MoveTo_ command is denoted by letter `M` or `m` followed by the point. So a `M10,10` would move the current
 position to the point `10,10`.
 
 <p align="center">
-    <img
-        src="https://user-images.githubusercontent.com/2996493/87868542-6a200100-c9b4-11ea-95b9-fa700d952063.png"
-        alt="line"
-    />
+  <img
+    src="https://user-images.githubusercontent.com/2996493/87868542-6a200100-c9b4-11ea-95b9-fa700d952063.png"
+    alt="line"
+  />
 </p>
 
-Similarly, *LineTo* has three commands.
+Similarly, _LineTo_ has three commands.
 `L` or `l` creates a line from the current position to the given point. For example, `L10,10` would create a line
 from the current position to `10,10`. `H` or `h` would create a horizontal line to the given x coordinate. And
 lastly, `V` or `v` would create a vertical line to the given y coordinate.
@@ -84,11 +87,11 @@ lastly, `V` or `v` would create a vertical line to the given y coordinate.
 Cubic Bézier Curve is slightly more complex. It is denoted by letter `C` or `c` and takes 3 points as arguments.
 
 <p align="center">
-    <img
-        src="https://user-images.githubusercontent.com/2996493/87860353-72e3e900-c95a-11ea-8731-e3828728c60e.png"
-        alt="Cubic Bézier Curve"
-        style={{ maxWidth: '75%' }}
-    />
+  <img
+    src="https://user-images.githubusercontent.com/2996493/87860353-72e3e900-c95a-11ea-8731-e3828728c60e.png"
+    alt="Cubic Bézier Curve"
+    style={{ maxWidth: '75%' }}
+  />
 </p>
 
 So, the current position is the start point. The line from the current position to `x1` `y1` point defines the
@@ -103,7 +106,7 @@ To solidify what we learned right now, lets decode the following SVG.
 ```HTML
 <svg
   viewbox="0 0 100 100"
-  width="100" height="100" 
+  width="100" height="100"
   xmlns="http://www.w3.org/2000/svg">
   <path
     d="M10,10 V50 C10,90,90,90,90,50 V10 H10 V50"
@@ -114,9 +117,11 @@ To solidify what we learned right now, lets decode the following SVG.
 The code above results in SVG shown below. For clarity, I have put a green border around the image.
 
 <p align="center">
-    <img width="110" alt="example svg"
+  <img
+    width="110"
+    alt="example svg"
     src="https://user-images.githubusercontent.com/2996493/87868661-e9fa9b00-c9b5-11ea-8f52-e0b0345d67bc.png"
-    />
+  />
 </p>
 
 Our path starts at `0,0` and the first command `M10,10` moves our point to `10,10`. Then the second command
@@ -133,15 +138,16 @@ creates a path to `10,10` and finally `V50` closes the path and we get our final
 />
 
 I divided the image into four quadrants and then planned to have a curve in the second and third quadrants, as
-shown in the first section in the image above. Then I can slightly move the tangents inwards to dampen the 
-curve. Finally, I closed the path using lines. I moved the center point slightly to have curves that are 
+shown in the first section in the image above. Then I can slightly move the tangents inwards to dampen the
+curve. Finally, I closed the path using lines. I moved the center point slightly to have curves that are
 slightly different. But making sure that the angle the tangents make with the vertical axis is the same. This
-ensures that the  curve looks continuous when I animate it. Finally, I ended up with the path as described
+ensures that the curve looks continuous when I animate it. Finally, I ended up with the path as described
 below.
 
 ```HTML
 <path d="M0,160 C320,300,420,300,740,160 C1060,20,1120,20,1440,160 V0 H0" />
 ```
+
 If you are having trouble with understanding the path described above, look at the last section in the image
 above. I have colour-coded each part of the path to make it more clear. You can also compare it with
 the section just above it to get an understanding of the points. If you were able to follow me till now,
@@ -159,7 +165,7 @@ attribute in `use` tag as described below.
 ```HTML{6-9,11-11}
 <svg
   viewbox="0 0 1440 320"
-  width="1440" height="320" 
+  width="1440" height="320"
   xmlns="http://www.w3.org/2000/svg">
   <defs>
     <path
@@ -189,7 +195,10 @@ very simple. Have two of the waves (that we created above) stacked horizontally 
 them from 0 to 100%. Rinse and repeat. Something like below.
 
 <p align="center">
-    <img src="https://media0.giphy.com/media/ibWnlk2h33g705GlDW/giphy.gif" alt="final" />
+  <img
+    src="https://media0.giphy.com/media/ibWnlk2h33g705GlDW/giphy.gif"
+    alt="final"
+  />
 </p>
 
 Here the black box represents the viewport of the user.
@@ -201,7 +210,7 @@ animation to our `wave` class.
 ```HTML{6-18,26-26}
 <svg
   viewbox="0 0 1440 320"
-  width="1440" height="320" 
+  width="1440" height="320"
   xmlns="http://www.w3.org/2000/svg">
   <defs>
     <style type="text/css">
@@ -232,16 +241,26 @@ Finally, I added two more similar waves, the only difference is that I used `sca
 to have a different amplitude of the waves. You can check out the final SVG on
 [CodePen](https://codepen.io/pushkar8723/pen/eYJQVvE).
 
-<iframe height="265" style={{ width: '100%' }} scrolling="no" title="Waves" src="https://codepen.io/pushkar8723/embed/eYJQVvE?height=265&theme-id=dark&default-tab=result" frameborder="no" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/pushkar8723/pen/eYJQVvE'>Waves</a> by Pushkar Anand
-  (<a href='https://codepen.io/pushkar8723'>@pushkar8723</a>) on <a href='https://codepen.io'>CodePen</a>.
+<iframe
+  height="265"
+  style="width: 100%;"
+  scrolling="no"
+  title="Waves"
+  src="https://codepen.io/pushkar8723/embed/eYJQVvE?height=265&theme-id=dark&default-tab=result"
+  frameborder="no"
+  allowtransparency="true"
+  allowfullscreen="true"
+>
+  See the Pen <a href="https://codepen.io/pushkar8723/pen/eYJQVvE">Waves</a> by
+  Pushkar Anand (<a href="https://codepen.io/pushkar8723">@pushkar8723</a>) on{' '}
+  <a href="https://codepen.io">CodePen</a>.
 </iframe>
 
 ### Bonus Tips 🤗
 
 I also added a few texts on the banner. This could have been simple as SVG supports Google Fonts but the
 [content security policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) of GitHub doesn't allow
-fonts to be downloaded from external sources. Thus, I used 
+fonts to be downloaded from external sources. Thus, I used
 [this utility](https://danmarshall.github.io/google-font-to-svg-path/) to create an SVG path for me which
 I copied in my final SVG. Check it out on my [GitHub Profile](https://github.com/pushkar8723).
 
