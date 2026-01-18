@@ -40,7 +40,7 @@ export function getPageBySlug(slug: string): Page | null {
     const { data, content } = matter(fileContents);
 
     // Extract headings for table of contents
-    const headingRegex = /^\s*(#{1,3})\s+(.+)$/gm;
+    const headingRegex = /^(#{1,3})\s+(.+)$/gm;
     const headings: { id: string; text: string; level: number }[] = [];
     let match;
 

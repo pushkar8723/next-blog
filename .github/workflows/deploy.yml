@@ -41,6 +41,9 @@ jobs:
               run: yarn format:check
 
             - name: Build
+              env:
+                  BASE_PATH: /next-blog
+                  NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io/next-blog
               run: yarn build
 
             - name: Setup Pages

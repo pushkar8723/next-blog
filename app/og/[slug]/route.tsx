@@ -27,7 +27,6 @@ export async function generateStaticParams() {
 
     // Add static pages
     const staticPages = [
-        { slug: 'about.jpg' },
         { slug: 'blog.jpg' },
         { slug: 'projects.jpg' },
         { slug: 'home.jpg' },
