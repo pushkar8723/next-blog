@@ -1,9 +1,15 @@
+// Read BASE_PATH at module load time to capture build-time environment
+const BASE_PATH = process.env.BASE_PATH || '';
+
 /**
  * Get the configured base path for the application
  * Used for GitHub Pages project site deployment
+ *
+ * The BASE_PATH is captured at module load time (build time for static export)
+ * so it will have the correct value from the build environment
  */
 export function getBasePath(): string {
-    return process.env.BASE_PATH || '';
+    return BASE_PATH;
 }
 
 /**

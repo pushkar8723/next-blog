@@ -133,5 +133,14 @@ export async function parseMarkdown(content: string): Promise<string> {
     });
 
     const html = await marked.parse(content);
-    return html;
+
+    // Post-process HTML to add basePath to img src attributes only
+    const processedHtml = basePath
+        ? html.replace(
+              /<img([^>]*?)src="(\/[^"]+)"/g,
+              `<img$1src="${basePath}$2"`
+          )
+        : html;
+
+    return processedHtml;
 }
