@@ -15,7 +15,6 @@ import { Badge } from '@/components/ui/badge';
 import Bio from '@/components/bio';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faFacebook,
     faGithub,
     faInstagram,
     faLinkedin,
@@ -92,20 +91,39 @@ export default function HomePage() {
                         {siteConfig.name}
                     </h1>
                     <Bio />
-
+                    <p>
+                        I have 11+ years of experience in crafting digital
+                        experiences through thoughtful code and design.
+                        <br />
+                        This space on the web is my attempt to share my
+                        projects, writings, and ideas with the world.
+                    </p>
                     <div className="mt-8 flex items-center gap-4 flex-wrap">
                         <a
-                            href={siteConfig.links.facebook}
+                            href={siteConfig.links.github}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
                         >
                             <FontAwesomeIcon
-                                icon={faFacebook}
+                                icon={faGithub}
                                 className="h-5 w-5"
                                 aria-hidden="true"
                             />
-                            <span className="text-sm">Facebook</span>
+                            <span className="text-sm">GitHub</span>
+                        </a>
+                        <a
+                            href={siteConfig.links.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+                        >
+                            <FontAwesomeIcon
+                                icon={faLinkedin}
+                                className="h-5 w-5"
+                                aria-hidden="true"
+                            />
+                            <span className="text-sm">LinkedIn</span>
                         </a>
                         <a
                             href={siteConfig.links.instagram}
@@ -121,19 +139,6 @@ export default function HomePage() {
                             <span className="text-sm">Instagram</span>
                         </a>
                         <a
-                            href={siteConfig.links.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
-                        >
-                            <FontAwesomeIcon
-                                icon={faGithub}
-                                className="h-5 w-5"
-                                aria-hidden="true"
-                            />
-                            <span className="text-sm">GitHub</span>
-                        </a>
-                        <a
                             href={siteConfig.links.twitter}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -147,19 +152,6 @@ export default function HomePage() {
                             <span className="text-sm">
                                 X (formerly Twitter)
                             </span>
-                        </a>
-                        <a
-                            href={siteConfig.links.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
-                        >
-                            <FontAwesomeIcon
-                                icon={faLinkedin}
-                                className="h-5 w-5"
-                                aria-hidden="true"
-                            />
-                            <span className="text-sm">LinkedIn</span>
                         </a>
                     </div>
                 </div>

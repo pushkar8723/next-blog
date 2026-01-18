@@ -13,18 +13,17 @@
     bottom: 0;
     filter: blur(8px);
     z-index: -1;
-}
-
-html.dark .hero-container::before {
-    background:
-        linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.8)),
-        var(--hero-image) no-repeat center top;
-    background-size: cover;
-}
-
-html.light .hero-container::before {
     background:
         linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.6)),
         var(--hero-image) no-repeat center top;
     background-size: cover;
+}
+
+@media (prefers-color-scheme: dark) {
+    .hero-container::before {
+        background:
+            linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.8)),
+            var(--hero-image) no-repeat center top;
+        background-size: cover;
+    }
 }

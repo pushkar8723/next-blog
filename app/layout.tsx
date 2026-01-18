@@ -4,7 +4,6 @@ import type { Metadata } from 'next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { Analytics } from '@vercel/analytics/next';
-import { ThemeProvider } from '@/components/theme-provider';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { siteConfig } from '@/lib/site-config';
@@ -141,20 +140,13 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html lang="en">
             <body className="font-sans antialiased">
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                    disableTransitionOnChange
-                >
-                    <div className="flex min-h-screen flex-col">
-                        <Header />
-                        <main className="flex-1">{children}</main>
-                        <Footer />
-                    </div>
-                </ThemeProvider>
+                <div className="flex min-h-screen flex-col">
+                    <Header />
+                    <main className="flex-1">{children}</main>
+                    <Footer />
+                </div>
                 <Analytics />
                 <SpeedInsights />
                 {process.env.NODE_ENV === 'development' && <MDXReloadClient />}

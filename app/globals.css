@@ -1,8 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-@custom-variant dark (&:is(.dark *));
-
 :root {
     --background: #eef1fb;
     --foreground: #000000;
@@ -39,39 +37,41 @@
     --sidebar-ring: oklch(0.708 0 0);
 }
 
-.dark {
-    --background: #31313c;
-    --foreground: oklch(100% 0.00011 271.152);
-    --card: #252531;
-    --card-foreground: oklch(0.95 0 0);
-    --popover: hsl(0, 0%, 0%);
-    --popover-foreground: oklch(0.95 0 0);
-    --primary: #64baff;
-    --primary-foreground: oklch(0.12 0.01 250);
-    --secondary: hsl(218, 25%, 46%);
-    --secondary-foreground: #fff;
-    --muted: hsl(220, 14%, 4%);
-    --muted-foreground: #cbd5e1;
-    --accent: hsl(215, 21%, 42%);
-    --accent-foreground: oklch(0.95 0 0);
-    --destructive: hsl(0 72.2% 50.6%);
-    --destructive-foreground: oklch(0.65 0.24 25);
-    --border: hsl(0, 0%, 31%);
-    --input: hsl(215 20% 18%);
-    --ring: hsl(215 45% 62%);
-    --chart-1: hsl(215 45% 62%);
-    --chart-2: hsl(220 38% 55%);
-    --chart-3: hsl(210 32% 68%);
-    --chart-4: hsl(205 25% 78%);
-    --chart-5: hsl(218 52% 42%);
-    --sidebar: hsl(215 25% 12%);
-    --sidebar-foreground: oklch(0.95 0 0);
-    --sidebar-primary: oklch(0.75 0.1 190);
-    --sidebar-primary-foreground: oklch(0.12 0.01 250);
-    --sidebar-accent: oklch(0.2 0.01 250);
-    --sidebar-accent-foreground: oklch(0.95 0 0);
-    --sidebar-border: oklch(0.25 0.01 250);
-    --sidebar-ring: oklch(0.4 0.02 250);
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #31313c;
+        --foreground: oklch(100% 0.00011 271.152);
+        --card: #252531;
+        --card-foreground: oklch(0.95 0 0);
+        --popover: hsl(0, 0%, 0%);
+        --popover-foreground: oklch(0.95 0 0);
+        --primary: #64baff;
+        --primary-foreground: oklch(0.12 0.01 250);
+        --secondary: hsl(218, 25%, 46%);
+        --secondary-foreground: #fff;
+        --muted: hsl(220, 14%, 4%);
+        --muted-foreground: #cbd5e1;
+        --accent: hsl(215, 21%, 42%);
+        --accent-foreground: oklch(0.95 0 0);
+        --destructive: hsl(0 72.2% 50.6%);
+        --destructive-foreground: oklch(0.65 0.24 25);
+        --border: hsl(0, 0%, 31%);
+        --input: hsl(215 20% 18%);
+        --ring: hsl(215 45% 62%);
+        --chart-1: hsl(215 45% 62%);
+        --chart-2: hsl(220 38% 55%);
+        --chart-3: hsl(210 32% 68%);
+        --chart-4: hsl(205 25% 78%);
+        --chart-5: hsl(218 52% 42%);
+        --sidebar: hsl(215 25% 12%);
+        --sidebar-foreground: oklch(0.95 0 0);
+        --sidebar-primary: oklch(0.75 0.1 190);
+        --sidebar-primary-foreground: oklch(0.12 0.01 250);
+        --sidebar-accent: oklch(0.2 0.01 250);
+        --sidebar-accent-foreground: oklch(0.95 0 0);
+        --sidebar-border: oklch(0.25 0.01 250);
+        --sidebar-ring: oklch(0.4 0.02 250);
+    }
 }
 
 @theme inline {
@@ -213,8 +213,8 @@
 }
 
 /* Proper Shiki dual theme CSS variable support for VS Code themes */
-html:not(.dark) .shiki,
-html:not(.dark) .shiki span {
+.shiki,
+.shiki span {
     color: var(--shiki-light);
     background-color: var(--shiki-light-bg);
     font-style: var(--shiki-light-font-style);
@@ -222,13 +222,15 @@ html:not(.dark) .shiki span {
     text-decoration: var(--shiki-light-text-decoration);
 }
 
-html.dark .shiki,
-html.dark .shiki span {
-    color: var(--shiki-dark);
-    background-color: var(--shiki-dark-bg);
-    font-style: var(--shiki-dark-font-style);
-    font-weight: var(--shiki-dark-font-weight);
-    text-decoration: var(--shiki-dark-text-decoration);
+@media (prefers-color-scheme: dark) {
+    .shiki,
+    .shiki span {
+        color: var(--shiki-dark);
+        background-color: var(--shiki-dark-bg);
+        font-style: var(--shiki-dark-font-style);
+        font-weight: var(--shiki-dark-font-weight);
+        text-decoration: var(--shiki-dark-text-decoration);
+    }
 }
 
 .shiki {
@@ -241,8 +243,10 @@ html.dark .shiki span {
     display: inline-block;
 }
 
-html.dark code {
-    background-color: #3b434f;
+@media (prefers-color-scheme: dark) {
+    code {
+        background-color: #3b434f;
+    }
 }
 
 /* Highlighted lines in code blocks */
@@ -253,24 +257,23 @@ html.dark code {
     box-sizing: border-box;
     margin-left: -1rem;
     margin-right: -1rem;
-}
-
-html.dark .shiki code {
-    background-color: transparent;
-}
-
-html.light .shiki .highlighted-line {
     background-color: rgba(0, 0, 0, 0.1);
     border-left: 3px solid rgb(0, 0, 0);
 }
 
-html.dark .shiki .highlighted-line {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-left: 3px solid rgb(255, 255, 255);
+.shiki code {
+    background-color: transparent;
 }
 
-html .shiki .highlighted-line span {
+.shiki .highlighted-line span {
     background-color: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+    .shiki .highlighted-line {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-left: 3px solid rgb(255, 255, 255);
+    }
 }
 
 /* Tables */
