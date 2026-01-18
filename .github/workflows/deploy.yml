@@ -44,6 +44,7 @@ jobs:
               env:
                   BASE_PATH: /next-blog
                   NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io/next-blog
+                  NEXT_PUBLIC_CANONICAL_URL: https://abstracted.in
               run: yarn build
 
             - name: Setup Pages

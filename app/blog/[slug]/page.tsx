@@ -36,6 +36,13 @@ export async function generateMetadata({
         title: post.title,
         description: post.description,
         authors: [{ name: post.author }],
+        alternates:
+            siteConfig.canonicalUrl &&
+            siteConfig.canonicalUrl !== siteConfig.url
+                ? {
+                      canonical: `${siteConfig.canonicalUrl}/blog/${post.slug}`,
+                  }
+                : undefined,
         openGraph: {
             type: 'article',
             title: post.title,
