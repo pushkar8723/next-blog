@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type React from 'react';
 import type { Metadata } from 'next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { Analytics } from '@vercel/analytics/next';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -155,6 +156,7 @@ export default function RootLayout({
                     </div>
                 </ThemeProvider>
                 <Analytics />
+                <SpeedInsights />
                 {process.env.NODE_ENV === 'development' && <MDXReloadClient />}
             </body>
         </html>
