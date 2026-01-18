@@ -12,9 +12,7 @@ export const siteConfig = {
             Developer
         </span>
     ), // Used for display
-    url:
-        process.env.NEXT_PUBLIC_SITE_URL ||
-        'https://v0-test-portfolio-app.vercel.app',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.abstracted.in',
     canonicalUrl: process.env.NEXT_PUBLIC_CANONICAL_URL || null,
     author: {
         name: 'Pushkar Anand',
