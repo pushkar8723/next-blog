@@ -92,7 +92,7 @@ export function Footer() {
                             />
                         </a>
                     </div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground text-center">
                         © {new Date().getFullYear()} {siteConfig.name}. All
                         rights reserved.
                     </p>

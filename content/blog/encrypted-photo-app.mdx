@@ -137,16 +137,19 @@ that would work only in Chrome is not the experience we wanted to deliver.
 
 And so we kept looking. By luck I stumbled on this awesome podcast.
 
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/G9PpImUEeUA?si=KC0YWzGlocCZ3Aje"
-  title="YouTube video player"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  referrerpolicy="strict-origin-when-cross-origin"
-  allowfullscreen
-></iframe>
+<p align="center">
+  <iframe
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed/G9PpImUEeUA?si=KC0YWzGlocCZ3Aje"
+    title="YouTube video player"
+    frameborder="0"
+    style="max-width: 100%;"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+  ></iframe>
+</p>
 
 Streams was the answer! Instead of putting everything in memory and then encrypting/decrypting the file,
 we can do it with [Readable Streams](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream).
