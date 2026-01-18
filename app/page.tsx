@@ -26,6 +26,7 @@ import './home.css';
 import { withBasePath } from '@/lib/base-path';
 
 const ogImageUrl = `${siteConfig.url}/og/home.jpg`;
+const heroImageUrl = withBasePath('/images/hero-image.jpg');
 
 export const metadata: Metadata = {
     title: 'Home',
@@ -57,6 +58,9 @@ export const metadata: Metadata = {
         images: [ogImageUrl],
         creator: siteConfig.author.twitter,
     },
+    other: {
+        'link-preload-hero': `<${heroImageUrl}>; rel=preload; as=image; fetchpriority=high`,
+    },
 };
 
 export default function HomePage() {
@@ -65,6 +69,12 @@ export default function HomePage() {
 
     return (
         <>
+            <link
+                rel="preload"
+                as="image"
+                href={withBasePath('/images/hero-image.jpg')}
+                fetchPriority="high"
+            />
             {/* Hero Section */}
             <section
                 className="hero-container py-16 lg:py-24 border-b border-border"
