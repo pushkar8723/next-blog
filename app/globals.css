@@ -281,3 +281,17 @@ html .shiki .highlighted-line span {
 .prose img {
     @apply rounded-lg my-6;
 }
+
+html.dark code {
+    background-color: #3b434f;
+}
+
+/* Scroll margin for headings to account for sticky header */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+    scroll-margin-top: 5rem; /* 80px = 64px header + 16px padding */
+}

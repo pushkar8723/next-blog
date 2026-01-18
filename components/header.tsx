@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { siteConfig } from '@/lib/site-config';
 import Image from 'next/image';
+import { withBasePath } from '@/lib/base-path';
 
 export function Header() {
     return (
@@ -11,7 +12,7 @@ export function Header() {
                     className="flex items-center gap-2 text-xl font-semibold text-foreground transition-colors hover:text-primary"
                 >
                     <Image
-                        src="/images/icons/icon-256x256.png"
+                        src={withBasePath('/images/icons/icon-256x256.png')}
                         alt={`${siteConfig.name} logo`}
                         width={32}
                         height={32}

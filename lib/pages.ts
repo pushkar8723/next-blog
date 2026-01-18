@@ -49,6 +49,7 @@ export function getPageBySlug(slug: string): Page | null {
         const level = match[1].length;
         const text = match[2];
         const id = text
+            .replace(/`([^`]*)`/g, '$1')
             .toLowerCase()
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/(^-|-$)/g, '');

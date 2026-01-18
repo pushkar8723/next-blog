@@ -34,9 +34,21 @@ export async function parseMarkdown(content: string): Promise<string> {
         gfm: true,
     });
 
-    // Custom renderer for code blocks with Shiki
+    // Get base path for image URLs
+    const basePath = process.env.BASE_PATH || '';
+
+    // Custom renderer for code blocks with Shiki and images with basePath
     marked.use({
         renderer: {
+            image({ href, title, text }) {
+                // Prefix local images with basePath
+                const src =
+                    href.startsWith('/') && basePath
+                        ? `${basePath}${href}`
+                        : href;
+                const titleAttr = title ? ` title="${title}"` : '';
+                return `<img src="${src}" alt="${text}"${titleAttr} />`;
+            },
             code({ text, lang }) {
                 // Parse language and line highlighting syntax (e.g., "typescript{3-9}")
                 const langMatch = lang?.match(/^(\w+)(?:\{([^}]+)\})?/);
@@ -106,6 +118,12 @@ export async function parseMarkdown(content: string): Promise<string> {
                 const id = text
                     .toLowerCase()
                     .replace(/<[^>]*>/g, '')
+                    .replace(/&lt;/g, '<')
+                    .replace(/&gt;/g, '>')
+                    .replace(/&amp;/g, '&')
+                    .replace(/&quot;/g, '"')
+                    .replace(/&#39;/g, "'")
+                    .replace(/`/g, '')
                     .replace(/[^a-z0-9]+/g, '-')
                     .replace(/(^-|-$)/g, '');
                 return `<h${depth} id="${id}">${text}</h${depth}>\n`;
