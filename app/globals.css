@@ -241,6 +241,10 @@ html.dark .shiki span {
     display: inline-block;
 }
 
+html.dark code {
+    background-color: #3b434f;
+}
+
 /* Highlighted lines in code blocks */
 .shiki .highlighted-line {
     display: inline-block;
@@ -248,6 +252,11 @@ html.dark .shiki span {
     padding-left: calc(1rem - 3px);
     box-sizing: border-box;
     margin-left: -1rem;
+    margin-right: -1rem;
+}
+
+html.dark .shiki code {
+    background-color: transparent;
 }
 
 html.light .shiki .highlighted-line {
@@ -280,10 +289,6 @@ html .shiki .highlighted-line span {
 
 .prose img {
     @apply rounded-lg my-6;
-}
-
-html.dark code {
-    background-color: #3b434f;
 }
 
 /* Scroll margin for headings to account for sticky header */

@@ -169,16 +169,19 @@ export default function HomePage() {
                                             {post.description}
                                         </p>
                                     </div>
-                                    <time className="shrink-0 text-sm text-muted-foreground">
-                                        {new Date(post.date).toLocaleDateString(
-                                            'en-US',
-                                            {
+                                    <div className="flex text-sm text-muted-foreground">
+                                        <time className="shrink-0">
+                                            {new Date(
+                                                post.date
+                                            ).toLocaleDateString('en-US', {
                                                 year: 'numeric',
                                                 month: 'short',
                                                 day: 'numeric',
-                                            }
-                                        )}
-                                    </time>
+                                            })}
+                                        </time>
+                                        <span className="mx-2">{` • `}</span>
+                                        <span>{post.readingTime}</span>
+                                    </div>
                                 </article>
                             </Link>
                         ))}
