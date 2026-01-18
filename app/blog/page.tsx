@@ -8,7 +8,7 @@ const ogImageUrl = `${siteConfig.url}/og/blog.jpg`;
 
 export const metadata: Metadata = {
     title: 'Blog',
-    description: 'Thoughts on development, design, and technology.',
+    description: 'My thoughts on development, design, and technology.',
     alternates:
         siteConfig.canonicalUrl && siteConfig.canonicalUrl !== siteConfig.url
             ? {

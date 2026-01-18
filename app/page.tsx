@@ -30,7 +30,8 @@ const heroImageUrl = withBasePath('/images/hero-image.jpg');
 
 export const metadata: Metadata = {
     title: 'Home',
-    description: 'Welcome to portfolio.',
+    description:
+        'Crafting digital experiences through thoughtful code and design.',
     alternates:
         siteConfig.canonicalUrl && siteConfig.canonicalUrl !== siteConfig.url
             ? {
@@ -40,7 +41,8 @@ export const metadata: Metadata = {
     openGraph: {
         type: 'article',
         title: 'Home',
-        description: 'Welcome to portfolio.',
+        description:
+            'Crafting digital experiences through thoughtful code and design.',
         url: `${siteConfig.url}/`,
         images: [
             {
@@ -54,7 +56,8 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'Home',
-        description: 'Welcome to portfolio.',
+        description:
+            'Crafting digital experiences through thoughtful code and design.',
         images: [ogImageUrl],
         creator: siteConfig.author.twitter,
     },

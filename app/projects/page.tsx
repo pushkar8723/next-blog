@@ -16,7 +16,8 @@ const ogImageUrl = `${siteConfig.url}/og/projects.jpg`;
 
 export const metadata: Metadata = {
     title: 'Projects',
-    description: "A collection of projects I've worked on.",
+    description:
+        "A collection of projects I've worked on. Some are open source, some are experiments.",
     alternates:
         siteConfig.canonicalUrl && siteConfig.canonicalUrl !== siteConfig.url
             ? {
@@ -26,7 +27,8 @@ export const metadata: Metadata = {
     openGraph: {
         type: 'article',
         title: 'Projects',
-        description: "A collection of projects I've worked on.",
+        description:
+            "A collection of projects I've worked on. Some are open source, some are experiments.",
         url: `${siteConfig.url}/projects`,
         images: [
             {
@@ -40,7 +42,8 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'Projects',
-        description: "A collection of projects I've worked on.",
+        description:
+            "A collection of projects I've worked on. Some are open source, some are experiments.",
         images: [ogImageUrl],
         creator: siteConfig.author.twitter,
     },
