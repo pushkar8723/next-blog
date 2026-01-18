@@ -37,7 +37,7 @@ person to come up with some really cool illustration. But my creativity is fairl
 do a moving wave. And to compensate for my lack of creativity, I learned another tag called `path`, which
 will help me create this wave. 🌊
 
-### The Idea 🤓
+## The Idea 🤓
 
 The idea was simple. Create multiple moving waves, each at a different speed, and make them a little see-through.
 The transparency will make the area darker where the waves intersect and thus there will be multiple
@@ -47,7 +47,7 @@ For the size of the banner, I settled for 1440 x 320 as I like the aspect ratio.
 big enough to add context. Given that on GitHub it would show up in a smaller area, I can be sure that there
 is enough space left for other things that I might want to add.
 
-### &lt;path /&gt;
+## `<path />`
 
 So, I started by learning how to create a path. Which was quite simple. The path tag has a `d` attribute.
 It was not hard to get 😉. There are 6 different types of commands.
@@ -129,7 +129,7 @@ Our path starts at `0,0` and the first command `M10,10` moves our point to `10,1
 as our reference points and `90,50` is the endpoint. Then `V10` creates a path to `90,10`. Next, `H10`
 creates a path to `10,10` and finally `V50` closes the path and we get our final image. Simple right? 👌
 
-### Implementation ✍️
+## Implementation ✍️
 
 <img
   src="https://user-images.githubusercontent.com/2996493/87860669-eab31300-c95c-11ea-8b40-a937a3c077b4.png"
@@ -153,7 +153,7 @@ above. I have colour-coded each part of the path to make it more clear. You can 
 the section just above it to get an understanding of the points. If you were able to follow me till now,
 then we already sailed through the difficult waters. 😁
 
-### &lt;defs /&gt; and &lt;use /&gt;
+## `<defs />` and `<use />`
 
 Although, we can now just copy-paste the above path and create other waves with slight variations and call it
 a day. I want to introduce `defs` and `use` tag, that will help us do all these in a much more readable way.
@@ -188,7 +188,7 @@ Right now a black wave is being rendered. To fix that we use `fill` and `fill-op
 />
 ```
 
-### Animation 🤤
+## Animation 🤤
 
 If you are already familiar with CSS animation, this section will be a cakewalk for you. So the idea is
 very simple. Have two of the waves (that we created above) stacked horizontally and then simply translate
@@ -256,7 +256,7 @@ to have a different amplitude of the waves. You can check out the final SVG on
   <a href="https://codepen.io">CodePen</a>.
 </iframe>
 
-### Bonus Tips 🤗
+## Bonus Tips 🤗
 
 I also added a few texts on the banner. This could have been simple as SVG supports Google Fonts but the
 [content security policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) of GitHub doesn't allow
@@ -264,7 +264,7 @@ fonts to be downloaded from external sources. Thus, I used
 [this utility](https://danmarshall.github.io/google-font-to-svg-path/) to create an SVG path for me which
 I copied in my final SVG. Check it out on my [GitHub Profile](https://github.com/pushkar8723).
 
-### Conclusion 👨‍💻
+## Conclusion 👨‍💻
 
 I barely scratched the surface of SVG animation but was able to create something which I think is cool.
 Was there a better way to do it? Is there some other interesting thing that I should explore? Do let me

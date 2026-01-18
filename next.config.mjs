@@ -5,7 +5,7 @@ const isDev = process.env.NODE_ENV === 'development';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    output: 'export',
+    output: isDev ? undefined : 'export',
     pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
     typescript: {
         ignoreBuildErrors: true,

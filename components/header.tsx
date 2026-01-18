@@ -21,7 +21,7 @@ export function Header() {
                     <span className="hidden sm:inline">{siteConfig.name}</span>
                 </Link>
 
-                <nav className="flex gap-6">
+                <nav className="flex gap-6" aria-label="navigation links">
                     <Link
                         href="/blog"
                         className="text-sm text-muted-foreground transition-colors hover:text-foreground"
