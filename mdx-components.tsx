@@ -5,17 +5,14 @@ export function useMDXComponents(components: Record<string, any> = {}) {
     return {
         ...components,
         a: (props: any) => {
-            const href =
-                props.href && props.href.startsWith('/')
-                    ? withBasePath(props.href)
-                    : props.href;
+            const { href, ...rest } = props;
 
             // External links
             if (href?.startsWith('http')) {
                 return (
                     // eslint-disable-next-line jsx-a11y/anchor-has-content
                     <a
-                        {...props}
+                        {...rest}
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -23,8 +20,8 @@ export function useMDXComponents(components: Record<string, any> = {}) {
                 );
             }
 
-            // Internal links
-            return <Link {...props} href={href} />;
+            // Internal links - Next.js Link handles basePath automatically
+            return <Link {...rest} href={href || ''} />;
         },
         img: (props: any) => {
             const src =

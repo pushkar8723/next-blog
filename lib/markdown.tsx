@@ -41,6 +41,18 @@ export async function parseMarkdown(content: string): Promise<string> {
     // Custom renderer for code blocks with Shiki and images with basePath
     marked.use({
         renderer: {
+            link({ href, title, text }) {
+                // Prefix local links with basePath
+                const finalHref =
+                    href.startsWith('/') && basePath
+                        ? `${basePath}${href}`
+                        : href;
+                const titleAttr = title ? ` title="${title}"` : '';
+                const target = href.startsWith('http')
+                    ? ' target="_blank" rel="noopener noreferrer"'
+                    : '';
+                return `<a href="${finalHref}"${titleAttr}${target}>${text}</a>`;
+            },
             image({ href, title, text }) {
                 // Prefix local images with basePath
                 const src =
