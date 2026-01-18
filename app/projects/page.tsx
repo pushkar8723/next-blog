@@ -17,6 +17,12 @@ const ogImageUrl = `${siteConfig.url}/og/projects.jpg`;
 export const metadata: Metadata = {
     title: 'Projects',
     description: "A collection of projects I've worked on.",
+    alternates:
+        siteConfig.canonicalUrl && siteConfig.canonicalUrl !== siteConfig.url
+            ? {
+                  canonical: `${siteConfig.canonicalUrl}/projects`,
+              }
+            : undefined,
     openGraph: {
         type: 'article',
         title: 'Projects',

@@ -9,6 +9,12 @@ const ogImageUrl = `${siteConfig.url}/og/blog.jpg`;
 export const metadata: Metadata = {
     title: 'Blog',
     description: 'Thoughts on development, design, and technology.',
+    alternates:
+        siteConfig.canonicalUrl && siteConfig.canonicalUrl !== siteConfig.url
+            ? {
+                  canonical: `${siteConfig.canonicalUrl}/blog`,
+              }
+            : undefined,
     openGraph: {
         type: 'article',
         title: 'Blog',
