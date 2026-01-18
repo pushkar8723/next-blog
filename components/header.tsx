@@ -15,11 +15,13 @@ export function Header() {
                         alt={`${siteConfig.name} logo`}
                         width={32}
                         height={32}
+                        priority
+                        sizes="32px"
                     />
                     <span className="hidden sm:inline">{siteConfig.name}</span>
                 </Link>
 
-                <nav className="flex gap-6">
+                <nav className="flex gap-6" aria-label="navigation links">
                     <Link
                         href="/blog"
                         className="text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -33,7 +35,13 @@ export function Header() {
                         Projects
                     </Link>
                     <Link
-                        href="/about"
+                        href="/work-ex"
+                        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                        Experience
+                    </Link>
+                    <Link
+                        href="/about-me"
                         className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                     >
                         About

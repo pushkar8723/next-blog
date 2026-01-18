@@ -86,6 +86,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     </h1>
                     <p
                         className="mt-4 text-lg text-muted-foreground"
+                        // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{
                             __html: project.description,
                         }}
@@ -110,6 +111,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
                 <div
                     className="prose max-w-none"
+                    // eslint-disable-next-line react/no-danger
                     dangerouslySetInnerHTML={{ __html: htmlContent }}
                 />
 

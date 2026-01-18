@@ -9,7 +9,7 @@ export function MDXReloadClient() {
 
     useEffect(() => {
         if (process.env.NODE_ENV !== 'development') {
-            return;
+            return undefined;
         }
 
         const eventSource = new EventSource('/api/mdx-watch');
