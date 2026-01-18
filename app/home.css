@@ -1,0 +1,30 @@
+.hero-container {
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.hero-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    filter: blur(8px);
+    z-index: -1;
+}
+
+html.dark .hero-container::before {
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.8)),
+        var(--hero-image) no-repeat center top;
+    background-size: cover;
+}
+
+html.light .hero-container::before {
+    background:
+        linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.6)),
+        var(--hero-image) no-repeat center top;
+    background-size: cover;
+}
