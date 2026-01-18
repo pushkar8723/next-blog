@@ -20,11 +20,12 @@ export function Footer() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                            aria-label="Facebook"
                         >
                             <FontAwesomeIcon
                                 icon={faFacebook}
                                 className="w-4"
-                                aria-label="Facebook"
+                                aria-hidden="true"
                             />
                         </a>
                         <a
@@ -32,11 +33,12 @@ export function Footer() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                            aria-label="Instagram"
                         >
                             <FontAwesomeIcon
                                 icon={faInstagram}
                                 className="w-4"
-                                aria-label="Instagram"
+                                aria-hidden="true"
                             />
                         </a>
                         <a
@@ -44,11 +46,12 @@ export function Footer() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                            aria-label="X (Formerly Twitter)"
                         >
                             <FontAwesomeIcon
                                 icon={faXTwitter}
                                 className="w-4"
-                                aria-label="X (Formerly Twitter)"
+                                aria-hidden="true"
                             />
                         </a>
                         <a
@@ -56,11 +59,12 @@ export function Footer() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                            aria-label="GitHub"
                         >
                             <FontAwesomeIcon
                                 icon={faGithub}
                                 className="w-4"
-                                aria-label="GitHub"
+                                aria-hidden="true"
                             />
                         </a>
                         <a
@@ -68,21 +72,23 @@ export function Footer() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                            aria-label="LinkedIn"
                         >
                             <FontAwesomeIcon
                                 icon={faLinkedin}
                                 className="w-4"
-                                aria-label="LinkedIn"
+                                aria-hidden="true"
                             />
                         </a>
                         <a
                             href="/rss.xml"
                             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                            aria-label="RSS Feed"
                         >
                             <FontAwesomeIcon
                                 icon={faRss}
                                 className="w-4"
-                                aria-label="RSS"
+                                aria-hidden="true"
                             />
                         </a>
                     </div>

@@ -74,6 +74,7 @@ export default function HomePage() {
                         <FontAwesomeIcon
                             icon={faFacebook}
                             className="h-5 w-5"
+                            aria-hidden="true"
                         />
                         <span className="text-sm">Facebook</span>
                     </a>
@@ -86,6 +87,7 @@ export default function HomePage() {
                         <FontAwesomeIcon
                             icon={faInstagram}
                             className="h-5 w-5"
+                            aria-hidden="true"
                         />
                         <span className="text-sm">Instagram</span>
                     </a>
@@ -95,7 +97,11 @@ export default function HomePage() {
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
                     >
-                        <FontAwesomeIcon icon={faGithub} className="h-5 w-5" />
+                        <FontAwesomeIcon
+                            icon={faGithub}
+                            className="h-5 w-5"
+                            aria-hidden="true"
+                        />
                         <span className="text-sm">GitHub</span>
                     </a>
                     <a
@@ -107,6 +113,7 @@ export default function HomePage() {
                         <FontAwesomeIcon
                             icon={faXTwitter}
                             className="h-5 w-5"
+                            aria-hidden="true"
                         />
                         <span className="text-sm">X (formerly Twitter)</span>
                     </a>
@@ -119,6 +126,7 @@ export default function HomePage() {
                         <FontAwesomeIcon
                             icon={faLinkedin}
                             className="h-5 w-5"
+                            aria-hidden="true"
                         />
                         <span className="text-sm">LinkedIn</span>
                     </a>
