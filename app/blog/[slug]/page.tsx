@@ -125,6 +125,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
                     <div
                         className="prose max-w-none"
+                        // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{ __html: htmlContent }}
                     />
 

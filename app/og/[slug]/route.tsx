@@ -1,6 +1,7 @@
 import { ImageResponse } from 'next/og';
 import { getPostBySlug, getAllPosts } from '@/lib/blog';
 import { getProjectBySlug, getAllProjects } from '@/lib/projects';
+import { getPageBySlug, getAllPages } from '@/lib/pages';
 import { siteConfig } from '@/lib/site-config';
 import { readFileSync } from 'fs';
 import { join } from 'path';
@@ -10,6 +11,7 @@ export const runtime = 'nodejs';
 export async function generateStaticParams() {
     const posts = getAllPosts();
     const projects = getAllProjects();
+    const pages = getAllPages();
 
     const postParams = posts.map(post => ({
         slug: `blog-${post.slug}.jpg`,
@@ -17,6 +19,10 @@ export async function generateStaticParams() {
 
     const projectParams = projects.map(project => ({
         slug: `project-${project.slug}.jpg`,
+    }));
+
+    const pageParams = pages.map(page => ({
+        slug: `page-${page.slug}.jpg`,
     }));
 
     // Add static pages
@@ -27,7 +33,7 @@ export async function generateStaticParams() {
         { slug: 'home.jpg' },
     ];
 
-    return [...postParams, ...projectParams, ...staticPages];
+    return [...postParams, ...projectParams, ...pageParams, ...staticPages];
 }
 
 export async function GET(
@@ -64,6 +70,16 @@ export async function GET(
             description = project.description;
         }
     }
+    // Check if it's a page (about-me, work-ex, etc.)
+    else if (cleanSlug.startsWith('page-')) {
+        const pageSlug = cleanSlug.replace('page-', '');
+        const page = getPageBySlug(pageSlug);
+
+        if (page) {
+            title = page.title;
+            description = page.description;
+        }
+    }
     // Otherwise, it's a generic page
     else {
         // Capitalize and format the slug as title
@@ -94,6 +110,7 @@ export async function GET(
                 position: 'relative',
             }}
         >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
                 src={templateBase64 || '/placeholder.svg'}
                 alt=""

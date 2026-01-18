@@ -8,7 +8,7 @@ export default function GitHubButton({ repo }: { repo: string }) {
             repo={repo}
             width={150}
             fontSize={16}
-            formatter={count => `${count}`}
+            formatter={count => Number(count).toLocaleString()}
         />
     );
 }

@@ -1,6 +1,6 @@
 import { siteConfig } from '@/lib/site-config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRss, faX } from '@fortawesome/free-solid-svg-icons';
+import { faRss } from '@fortawesome/free-solid-svg-icons';
 import {
     faFacebook,
     faGithub,
@@ -36,6 +36,7 @@ export function Footer() {
                             <FontAwesomeIcon
                                 icon={faInstagram}
                                 className="w-4"
+                                aria-label="Instagram"
                             />
                         </a>
                         <a
@@ -47,6 +48,7 @@ export function Footer() {
                             <FontAwesomeIcon
                                 icon={faXTwitter}
                                 className="w-4"
+                                aria-label="X (Formerly Twitter)"
                             />
                         </a>
                         <a
@@ -55,7 +57,11 @@ export function Footer() {
                             rel="noopener noreferrer"
                             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                         >
-                            <FontAwesomeIcon icon={faGithub} className="w-4" />
+                            <FontAwesomeIcon
+                                icon={faGithub}
+                                className="w-4"
+                                aria-label="GitHub"
+                            />
                         </a>
                         <a
                             href={siteConfig.links.linkedin}
@@ -66,13 +72,18 @@ export function Footer() {
                             <FontAwesomeIcon
                                 icon={faLinkedin}
                                 className="w-4"
+                                aria-label="LinkedIn"
                             />
                         </a>
                         <a
                             href="/rss.xml"
                             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                         >
-                            <FontAwesomeIcon icon={faRss} className="w-4" />
+                            <FontAwesomeIcon
+                                icon={faRss}
+                                className="w-4"
+                                aria-label="RSS"
+                            />
                         </a>
                     </div>
                     <p className="text-sm text-muted-foreground">

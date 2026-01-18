@@ -10,6 +10,8 @@ export default function Bio() {
                 width={64}
                 height={64}
                 className="rounded-full"
+                priority
+                sizes="64px"
             />
             <div className="ml-4">
                 <p className="text-2xl font-bold text-foreground">

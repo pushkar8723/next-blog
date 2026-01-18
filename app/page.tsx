@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, Github, Linkedin, Twitter } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { getAllPosts } from '@/lib/blog';
 import { getAllProjects } from '@/lib/projects';
 import { siteConfig } from '@/lib/site-config';
