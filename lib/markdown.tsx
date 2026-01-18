@@ -1,5 +1,6 @@
 import { Marked } from 'marked';
 import { createHighlighter, type Highlighter } from 'shiki';
+import { getBasePath } from './base-path';
 
 let highlighterPromise: Promise<Highlighter> | null = null;
 
@@ -35,7 +36,7 @@ export async function parseMarkdown(content: string): Promise<string> {
     });
 
     // Get base path for image URLs
-    const basePath = process.env.BASE_PATH || '';
+    const basePath = getBasePath();
 
     // Custom renderer for code blocks with Shiki and images with basePath
     marked.use({
