@@ -36,7 +36,7 @@ export function Header() {
                         priority
                         sizes="32px"
                     />
-                    <span className="hidden sm:inline">{siteConfig.name}</span>
+                    <span>{siteConfig.name}</span>
                 </Link>
 
                 {/* Desktop navigation */}
