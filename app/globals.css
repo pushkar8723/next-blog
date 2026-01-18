@@ -245,7 +245,7 @@
 
 @media (prefers-color-scheme: dark) {
     code {
-        background-color: #3b434f;
+        background-color: #3b434f !important;
     }
 }
 
@@ -262,7 +262,7 @@
 }
 
 .shiki code {
-    background-color: transparent;
+    background-color: transparent !important;
 }
 
 .shiki .highlighted-line span {
