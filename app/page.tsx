@@ -60,9 +60,6 @@ export const metadata: Metadata = {
         images: [ogImageUrl],
         creator: siteConfig.author.twitter,
     },
-    other: {
-        'link-preload-hero': `<${heroImageUrl}>; rel=preload; as=image; fetchpriority=high`,
-    },
 };
 
 export default function HomePage() {
@@ -71,18 +68,62 @@ export default function HomePage() {
 
     return (
         <>
-            <link
-                rel="preload"
-                as="image"
-                href={withBasePath('/images/hero-image.jpg')}
-                fetchPriority="high"
-            />
+            {[
+                {
+                    href: withBasePath('/images/hero-images/2560.jpg'),
+                    media: '(min-width:2560px)',
+                },
+                {
+                    href: withBasePath('/images/hero-images/1920.jpg'),
+                    media: '(min-width:1920px) and (max-width:2559px)',
+                },
+                {
+                    href: withBasePath('/images/hero-images/1600.jpg'),
+                    media: '(min-width:1600px) and (max-width:1919px)',
+                },
+                {
+                    href: withBasePath('/images/hero-images/1280.jpg'),
+                    media: '(min-width:1280px) and (max-width:1599px)',
+                },
+                {
+                    href: withBasePath('/images/hero-images/1024.jpg'),
+                    media: '(min-width:1024px) and (max-width:1279px)',
+                },
+                {
+                    href: withBasePath('/images/hero-images/768.jpg'),
+                    media: '(min-width:768px) and (max-width:1023px)',
+                },
+                {
+                    href: withBasePath('/images/hero-images/640.jpg'),
+                    media: '(min-width:640px) and (max-width:767px)',
+                },
+                {
+                    href: withBasePath('/images/hero-images/480.jpg'),
+                    media: '(max-width:639px)',
+                },
+            ].map(p => (
+                <link
+                    key={p.href}
+                    rel="preload"
+                    as="image"
+                    href={p.href}
+                    media={p.media}
+                    fetchPriority="high"
+                />
+            ))}
             {/* Hero Section */}
             <section
                 className="hero-container py-16 lg:py-24 border-b border-border"
                 style={
                     {
-                        '--hero-image': `url('${withBasePath('/images/hero-image.jpg')}')`,
+                        '--hero-image-480': `url(${withBasePath('/images/hero-images/480.jpg')})`,
+                        '--hero-image-640': `url(${withBasePath('/images/hero-images/640.jpg')})`,
+                        '--hero-image-768': `url(${withBasePath('/images/hero-images/768.jpg')})`,
+                        '--hero-image-1024': `url(${withBasePath('/images/hero-images/1024.jpg')})`,
+                        '--hero-image-1280': `url(${withBasePath('/images/hero-images/1280.jpg')})`,
+                        '--hero-image-1600': `url(${withBasePath('/images/hero-images/1600.jpg')})`,
+                        '--hero-image-1920': `url(${withBasePath('/images/hero-images/1920.jpg')})`,
+                        '--hero-image-2560': `url(${withBasePath('/images/hero-images/2560.jpg')})`,
                     } as React.CSSProperties
                 }
             >

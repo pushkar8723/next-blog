@@ -13,17 +13,64 @@
     bottom: 0;
     filter: blur(8px);
     z-index: -1;
-    background:
-        linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.6)),
-        var(--hero-image) no-repeat center top;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+
+    /* Shared gradient layer (Top Layer) */
+    --overlay: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.8));
+
+    /* Mobile Default (480px) */
+    background-image: var(--overlay), var(--hero-image-480);
+
+    background-image: var(--overlay), var(--hero-image-480);
     background-size: cover;
 }
 
 @media (prefers-color-scheme: dark) {
     .hero-container::before {
-        background:
-            linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.8)),
-            var(--hero-image) no-repeat center top;
-        background-size: cover;
+        --overlay: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.8));
+    }
+}
+
+@media (min-width: 640px) {
+    .hero-container::before {
+        background-image: var(--overlay), var(--hero-image-640);
+    }
+}
+
+@media (min-width: 768px) {
+    .hero-container::before {
+        background-image: var(--overlay), var(--hero-image-768);
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero-container::before {
+        background-image: var(--overlay), var(--hero-image-1024);
+    }
+}
+
+@media (min-width: 1280px) {
+    .hero-container::before {
+        background-image: var(--overlay), var(--hero-image-1280);
+    }
+}
+
+@media (min-width: 1600px) {
+    .hero-container::before {
+        background-image: var(--overlay), var(--hero-image-1600);
+    }
+}
+
+@media (min-width: 1920px) {
+    .hero-container::before {
+        background-image: var(--overlay), var(--hero-image-1920);
+    }
+}
+
+@media (min-width: 2560px) {
+    .hero-container::before {
+        background-image: var(--overlay), var(--hero-image-2560);
     }
 }
