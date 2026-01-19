@@ -1,0 +1,29 @@
+{
+    "redirects": [
+        {
+            "source": "/building-ui-components-correctly",
+            "destination": "/blog/building-ui-components-correctly",
+            "permanent": true
+        },
+        {
+            "source": "/encrypted-photo-app",
+            "destination": "/blog/encrypted-photo-app",
+            "permanent": true
+        },
+        {
+            "source": "/fullstack-serverless-template",
+            "destination": "/blog/fullstack-serverless-template",
+            "permanent": true
+        },
+        {
+            "source": "/promise-polyfill",
+            "destination": "/blog/promise-polyfill",
+            "permanent": true
+        },
+        {
+            "source": "/svg-animation",
+            "destination": "/blog/svg-animation",
+            "permanent": true
+        }
+    ]
+}
