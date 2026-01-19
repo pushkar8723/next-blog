@@ -178,12 +178,8 @@ export async function GET(
                                 day: 'numeric',
                             })}
                         </span>
-                        {readingTime && (
-                            <>
-                                <span>•</span>
-                                <span>{readingTime}</span>
-                            </>
-                        )}
+                        <span>•</span>
+                        {readingTime && <span>{readingTime}</span>}
                     </div>
                 )}
             </div>

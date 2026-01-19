@@ -13,6 +13,7 @@ export default function Bio() {
                 className="rounded-full"
                 priority
                 sizes="64px"
+                aria-label="Profile Picture"
             />
             <div className="ml-4">
                 <p className="text-2xl font-bold text-foreground">

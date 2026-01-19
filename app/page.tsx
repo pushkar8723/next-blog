@@ -94,7 +94,8 @@ export default function HomePage() {
                     <p>
                         I have 11+ years of experience in crafting digital
                         experiences through thoughtful code and design.
-                        <br />
+                    </p>
+                    <p>
                         This space on the web is my attempt to share my
                         projects, writings, and ideas with the world.
                     </p>

@@ -8,7 +8,11 @@ export const siteConfig = {
     descriptionElement: (
         <span className="flex justify-center gap-2">
             Passionate{' '}
-            <FontAwesomeIcon icon={faJsSquare} className="inline h-5" />{' '}
+            <FontAwesomeIcon
+                icon={faJsSquare}
+                className="inline h-5"
+                aria-label="JavaScript"
+            />{' '}
             Developer
         </span>
     ), // Used for display
