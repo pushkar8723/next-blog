@@ -5,6 +5,7 @@ export default function NotFoundImg(props: React.SVGProps<SVGSVGElement>) {
             viewBox="0 0 500 500"
             {...props}
         >
+            <title>Page not found illustration</title>
             <g id="freepik--background-complete--inject-8">
                 <path
                     d="M238.4,445.05H45.3a5.71,5.71,0,0,1-5.71-5.71V60.66A5.71,5.71,0,0,1,45.3,55H238.4a5.71,5.71,0,0,1,5.71,5.71V439.34A5.71,5.71,0,0,1,238.4,445.05ZM45.3,55.2a5.47,5.47,0,0,0-5.46,5.46V439.34a5.47,5.47,0,0,0,5.46,5.46H238.4a5.47,5.47,0,0,0,5.46-5.46V60.66a5.47,5.47,0,0,0-5.46-5.46Z"
