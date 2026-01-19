@@ -4,8 +4,7 @@ import NotFoundImg from '@/components/ui/notFoundImg';
 export default function NotFound() {
     return (
         <div
-            className="flex items-center justify-center px-4 py-16"
-            style={{ minHeight: 'calc(100vh - 85px - 65px)' }}
+            className="flex items-center justify-center px-4 py-16 min-h-[calc(100vh-theme(spacing.16)-65px)]"
         >
             <div className="max-w-5xl w-full text-center space-y-8">
                 <div className="flex flex-col sm:flex-row items-center gap-8 sm:gap-12">
