@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { siteConfig } from '@/lib/site-config';
-import Image from 'next/image';
+import ExportedImage from 'next-image-export-optimizer';
 import { withBasePath } from '@/lib/base-path';
 import {
     Popover,
@@ -28,13 +28,12 @@ export function Header() {
                     href="/"
                     className="flex items-center gap-2 text-xl font-semibold text-foreground transition-colors hover:text-primary"
                 >
-                    <Image
-                        src={withBasePath('/images/icons/icon-256x256.png')}
+                    <ExportedImage
+                        src={withBasePath('/optimized-images/icon-256x256.png')}
                         alt={`${siteConfig.name} logo`}
                         width={32}
                         height={32}
                         priority
-                        sizes="32px"
                     />
                     <span>{siteConfig.name}</span>
                 </Link>

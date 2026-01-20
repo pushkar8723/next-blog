@@ -17,7 +17,7 @@ import {
 import { MDXReloadClient } from './mdx-reload';
 import './globals.css';
 
-// Initialize fonts
+// Initialize fonts with display swap to prevent blocking
 const dmSans = V0_Font_DM_Sans({
     subsets: ['latin'],
     weight: [
@@ -32,14 +32,20 @@ const dmSans = V0_Font_DM_Sans({
         '900',
         '1000',
     ],
+    display: 'swap',
+    preload: true,
 });
 const geistMono = V0_Font_Geist_Mono({
     subsets: ['latin'],
     weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+    display: 'swap',
+    preload: true,
 });
 const ebGaramond = V0_Font_EB_Garamond({
     subsets: ['latin'],
     weight: ['400', '500', '600', '700', '800'],
+    display: 'swap',
+    preload: true,
 });
 
 export const metadata: Metadata = {

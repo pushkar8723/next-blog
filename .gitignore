@@ -25,3 +25,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts.api.backup
+
+.yarn/install-state.gz
+
+# next-image-export-optimizer generated images
+**/nextImageExportOptimizer/
+**/next-image-export-optimizer-hashes.json
