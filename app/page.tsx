@@ -25,7 +25,6 @@ import './home.css';
 import { withBasePath } from '@/lib/base-path';
 
 const ogImageUrl = `${siteConfig.url}/og/home.jpg`;
-const heroImageUrl = withBasePath('/images/hero-image.jpg');
 
 export const metadata: Metadata = {
     title: 'Home',
