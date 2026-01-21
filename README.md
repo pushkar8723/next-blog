@@ -6,7 +6,7 @@
 
 🚀 [Live Demo](https://pushkar8723.github.io/next-blog/)
 
-I migrated my blog from Gatsby to Next.JS and in the process I created a template that I think would be
+I migrated my blog from Gatsby to Next.js and in the process I created a template that I think would be
 far more easily customizable / hackable than my previous blog.
 
 ## Quick Start
@@ -83,19 +83,19 @@ However I found it very hard to templatise or explain to a non-JavaScript develo
 JavaScript developers, the learning curve was high. You need to be comfortable with GraphQL to do any
 modifications or you would be stuck with whatever I provide you. Even I found it hard to change certain things
 like customizing the OG image / twitter card image for my post. I was at the mercy of what the plugin author
-provided me. Sure I can go read the plugin code and make modifications and use it. But that just too much work!
+provided me. Sure I can go read the plugin code and make modifications and use it. But that's just too much work!
 And I never took time to truly understand the GatsbyImage. I used MDX for generating blog pages, which meant
 that I also need to make GatsbyImage work with MDX. Something I never got to because by the time I was done
 with creating pages, sub-pages, blogs and configuring plugins for code highlighting, OG image and RSS feed
 generation, I was too overwhelmed to configure one more thing.
 
-Hence, for quite sometime, it was on my mind to move to Next.JS. Over the years of using it in my professional
+Hence, for quite sometime, it was on my mind to move to Next.js. Over the years of using it in my professional
 work, I found the file based routing quite easy to navigate / explain to anyone. It is very lean and hackable
 to generate not just HTML, CSS and JavaScript, but anything from XML to image. The only issue is the lack of
 rich plugin ecosystem but that also meant that this time I can do things the way I want them.
 
 So one fine day, I decided to see how good the AI has become. I logged into [v0](https://v0.app/) and gave it
-my requirements and was surprised that it was able to create (with some prompting and correcting) a Next.JS
+my requirements and was surprised that it was able to create (with some prompting and correcting) a Next.js
 site which somewhat did what I wanted.
 
 ## Hacking a Blogging Web App
@@ -104,19 +104,18 @@ The website that v0 created had better layout than my previous blog but lacked t
 was bit off. It added too many unused dependencies (which gets tree-shaken in prod build but still not good
 from code maintenance POV). Because I didn't intend to depend on v0 or any other AI app for maintenance.
 Many would disagree with me on this. However I still feel that AI is good for generating code but bad for
-maintenance. Simply because it can see / experience the app as a human.
+maintenance. Simply because it can't see / experience the app as a human.
 
 ## The Good and the Bad
 
-Before I dive into how to use this I want to quickly summarise what were the things that v0 got right and
-what it got wrong:
+Before listing down the features, I want to quickly summarise what were the things that v0 got right and what it got wrong:
 
 The good parts:
 
 - **HomePage**: The current homepage might look generic but it was leaps and bounds ahead of what I created
   using the Gatsby Start Blog template. With 3 recent post and top 3 projects highlighted on home page.
 - **MDX Blog Page Generation**: I just love the Blog Page it generated. As per my requirement, it used MDX
-  and matter to generate the page's metadata and the content. I even generated the table of contents visible
+  and matter to generate the page's metadata and the content. It even generated the table of contents visible
   only on large screen with smooth scrolling and highlighting.
 - **OG Image and RSS Feed**: I also created the [OG route](/app/og/[slug]/route.tsx) to generate the OG
   image and [RSS route](/app/rss.xml/route.ts) to generate the RSS XML.
@@ -125,7 +124,7 @@ The good parts:
 
 The bad parts:
 
-- **Theming**: While I understand that it might be issue with v0 template and not AI. But the the default
+- **Theming**: While I understand that it might be issue with v0 template and not the AI. But the the default
   color scheme is way too reliant on just black and white (at least in dark mode). I checked with 2 people
   on this and they too had same opinion.
 - **Layout and Responsiveness**: The spacing was way too off. At some places it was way too close with each
@@ -135,7 +134,7 @@ The bad parts:
   Which wasn't great as I wanted a page dedicated to each project where I describe the project. It should
   have stuck with MDX for this and other pages like About Me as well.
 - **Hero Section**: The generated hero section was good enough to explain the website and provide links to
-  my social profile but was too plain for a portfolio.
+  my social profiles but was too plain for a portfolio.
 - **Deprecated Dependencies**: This again could be v0's template issue but some of the dependencies included
   by v0 were already depreciated i.e., the dependency it used icons.
 - **Unnecessary files**: It also had two global css file (one wasn't used) and few files in the root folder
@@ -159,7 +158,7 @@ Although I have already discussed above about most of the features, its good to 
   have the default vscode theme. This is a theme that I feel most developers would be comfortable with.
 - **Work without JavaScript**: The app generated by v0 relied on JavaScript for light/dark theme. I refactored
   it be a purely CSS theme. Now the site will work without JavaScript (for 99% of use-cases).
-- **Image Optimizations**: Next.JS relies on edge server for image optimizations. So for statically exported
+- **Image Optimizations**: Next.js relies on edge server for image optimizations. So for statically exported
   app, the image optimization is disabled. I used `next-image-export-optimizer` for generating optimized images
   of different dimensions. Any image placed in [/public/optimized-images/](/public/optimized-images/) folder
   will be picked up during build and optimized images of different sizes will be generated. Also the image src
@@ -167,7 +166,7 @@ Although I have already discussed above about most of the features, its good to 
   so that while writing a blog, the user need not worry about image optimization. All that is need from user
   is to place image in `optimized-images` folder and reference it properly in `src` attribute. Rest is taken
   care by the build process.
-- **Hot Reload for MDX**: Since MDX file changes are not monitored by Next.JS, [mdx-reload](/app/mdx-reload.tsx)
+- **Hot Reload for MDX**: Since MDX file changes are not monitored by Next.js, [mdx-reload](/app/mdx-reload.tsx)
   component is used to automatically refresh the route on MDX file change. This is only present in development
   and is not used in production build.
 - **Maintenance Scripts**: I added scripts like `analyze` and `cleanup` for easy debugging / cleanup.
@@ -197,7 +196,7 @@ would like to point out to explain why I feel this setup is better than my earli
   around with this template to customize the look and feel of the app. AI can also help customize it.
   No fiddling around with GraphQL queries / configuring plugins across different Gatsby files.
 - The performance aspect of the app is taken care of. The user doesn't need to worry about
-    - Build optimization (Next.JS takes care of it).
+    - Build optimization (Next.js takes care of it).
     - SEO tags are generated using MDX metadata (front-matter section of MDX).
     - Image optimization comes out of the box (just place the image in `optimized-images` folder).
     - OG Image, for each page, are generated using plain HTML CSS and anyone with basic HTML / CSS
