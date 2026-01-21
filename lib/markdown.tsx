@@ -54,13 +54,72 @@ export async function parseMarkdown(content: string): Promise<string> {
                 return `<a href="${finalHref}"${titleAttr}${target}>${text}</a>`;
             },
             image({ href, title, text }) {
+                // Check if image is in optimized-images folder and replace with optimized WebP
+                let finalSrc = href;
+                if (
+                    href.startsWith('/optimized-images/') &&
+                    !href.includes('nextImageExportOptimizer')
+                ) {
+                    // Extract path and filename
+                    // e.g., /optimized-images/about-me/profile-pic.jpg
+                    // -> path: about-me, filename: profile-pic
+                    const parts = href
+                        .replace('/optimized-images/', '')
+                        .split('/');
+                    const filename = parts.pop()?.replace(/\.[^.]+$/, '');
+                    const subPath =
+                        parts.length > 0 ? `${parts.join('/')}/` : '';
+
+                    // Use 640px optimized WebP version (good balance for most images)
+                    finalSrc = `/optimized-images/${subPath}nextImageExportOptimizer/${filename}-opt-640.WEBP`;
+                }
+
                 // Prefix local images with basePath
                 const src =
-                    href.startsWith('/') && basePath
-                        ? `${basePath}${href}`
-                        : href;
-                const titleAttr = title ? ` title="${title}"` : '';
-                return `<img src="${src}" alt="${text}"${titleAttr} />`;
+                    finalSrc.startsWith('/') && basePath
+                        ? `${basePath}${finalSrc}`
+                        : finalSrc;
+
+                // Parse title for dimensions, alignment, and loading (format: "width=350 height=350 center eager" or just "title text")
+                let attributes = '';
+                let styles = '';
+                let hasProps = false;
+
+                if (title) {
+                    const widthMatch = title.match(/width=(\d+)/);
+                    const heightMatch = title.match(/height=(\d+)/);
+                    const centerMatch = title.match(/\bcenter\b/);
+                    const eagerMatch = title.match(/\beager\b/);
+
+                    if (widthMatch) {
+                        attributes += ` width="${widthMatch[1]}"`;
+                        hasProps = true;
+                    }
+                    if (heightMatch) {
+                        attributes += ` height="${heightMatch[1]}"`;
+                        hasProps = true;
+                    }
+                    if (centerMatch) {
+                        styles = ' style="display: block; margin: 0 auto;"';
+                        hasProps = true;
+                    }
+                    if (eagerMatch) {
+                        attributes += ' loading="eager"';
+                        hasProps = true;
+                    }
+
+                    // If title doesn't contain any props, treat it as actual title
+                    if (!hasProps) {
+                        attributes += ` title="${title}"`;
+                    }
+                }
+
+                // Default to lazy loading unless eager is specified
+                if (!attributes.includes('loading=')) {
+                    attributes += ' loading="lazy"';
+                }
+
+                return `<img src="${src}" alt="${text}"${attributes}${styles} />`;
             },
             code({ text, lang }) {
                 // Parse language and line highlighting syntax (e.g., "typescript{3-9}")

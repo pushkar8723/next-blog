@@ -4,11 +4,12 @@
     "private": true,
     "scripts": {
         "build:prepare": "rm -rf .next && (test -d app/api && mv app/api .api.backup || true)",
-        "build:next": "next build && next-image-export-optimizer",
+        "build:next": "next build && yarn optimize:images",
         "build:restore": "test -d .api.backup && mv .api.backup app/api || true",
         "build": "yarn build:prepare && yarn build:next && yarn build:restore",
         "analyze": "yarn build:prepare &&ANALYZE=true next build --webpack && yarn build:restore",
         "dev": "next dev",
+        "optimize:images": "next-image-export-optimizer",
         "lint": "eslint .",
         "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,mdx,css,scss,html}\"",
         "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,md,mdx,css,scss,html}\"",

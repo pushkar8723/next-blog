@@ -6,7 +6,7 @@ export default function Bio() {
     return (
         <div className="flex items-center my-8">
             <ExportedImage
-                src={withBasePath('/optimized-images/profile-pic.jpg')}
+                src={withBasePath('/optimized-images/about-me/profile-pic.jpg')}
                 alt="Avatar"
                 width={64}
                 height={64}
