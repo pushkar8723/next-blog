@@ -20,32 +20,24 @@ import './globals.css';
 // Initialize fonts with display swap to prevent blocking
 const dmSans = V0_Font_DM_Sans({
     subsets: ['latin'],
-    weight: [
-        '100',
-        '200',
-        '300',
-        '400',
-        '500',
-        '600',
-        '700',
-        '800',
-        '900',
-        '1000',
-    ],
-    display: 'swap',
+    weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+    variable: '--font-dm-sans',
+    display: 'optional',
     preload: true,
+    adjustFontFallback: true,
+    fallback: ['system-ui', 'arial'],
 });
 const geistMono = V0_Font_Geist_Mono({
     subsets: ['latin'],
     weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-    display: 'swap',
-    preload: true,
+    display: 'optional',
+    preload: false,
 });
 const ebGaramond = V0_Font_EB_Garamond({
     subsets: ['latin'],
     weight: ['400', '500', '600', '700', '800'],
-    display: 'swap',
-    preload: true,
+    display: 'optional',
+    preload: false,
 });
 
 export const metadata: Metadata = {
