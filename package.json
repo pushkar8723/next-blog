@@ -8,6 +8,7 @@
         "build:restore": "test -d .api.backup && mv .api.backup app/api || true",
         "build": "yarn build:prepare && yarn build:next && yarn build:restore",
         "analyze": "yarn build:prepare &&ANALYZE=true next build --webpack && yarn build:restore",
+        "clean": "rm -rf .next out public/optimized-images/**/nextImageExportOptimizer",
         "dev": "next dev",
         "optimize:images": "next-image-export-optimizer",
         "lint": "eslint .",
