@@ -54,31 +54,12 @@ export async function parseMarkdown(content: string): Promise<string> {
                 return `<a href="${finalHref}"${titleAttr}${target}>${text}</a>`;
             },
             image({ href, title, text }) {
-                // Check if image is in optimized-images folder and replace with optimized WebP
-                let finalSrc = href;
-                if (
-                    href.startsWith('/optimized-images/') &&
-                    !href.includes('nextImageExportOptimizer')
-                ) {
-                    // Extract path and filename
-                    // e.g., /optimized-images/about-me/profile-pic.jpg
-                    // -> path: about-me, filename: profile-pic
-                    const parts = href
-                        .replace('/optimized-images/', '')
-                        .split('/');
-                    const filename = parts.pop()?.replace(/\.[^.]+$/, '');
-                    const subPath =
-                        parts.length > 0 ? `${parts.join('/')}/` : '';
-
-                    // Use 640px optimized WebP version (good balance for most images)
-                    finalSrc = `/optimized-images/${subPath}nextImageExportOptimizer/${filename}-opt-640.WEBP`;
-                }
-
-                // Prefix local images with basePath
+                // No optimization here - post-processor will handle it
+                // Just prefix with basePath if needed
                 const src =
-                    finalSrc.startsWith('/') && basePath
-                        ? `${basePath}${finalSrc}`
-                        : finalSrc;
+                    href.startsWith('/') && basePath
+                        ? `${basePath}${href}`
+                        : href;
 
                 // Parse title for dimensions, alignment, and loading (format: "width=350 height=350 center eager" or just "title text")
                 let attributes = '';
@@ -86,8 +67,8 @@ export async function parseMarkdown(content: string): Promise<string> {
                 let hasProps = false;
 
                 if (title) {
-                    const widthMatch = title.match(/width=(\d+)/);
-                    const heightMatch = title.match(/height=(\d+)/);
+                    const widthMatch = title.match(/width=([\d%]+)/);
+                    const heightMatch = title.match(/height=([\d%]+)/);
                     const centerMatch = title.match(/\bcenter\b/);
                     const eagerMatch = title.match(/\beager\b/);
 
@@ -205,13 +186,165 @@ export async function parseMarkdown(content: string): Promise<string> {
 
     const html = await marked.parse(content);
 
-    // Post-process HTML to add basePath to img src attributes only
-    const processedHtml = basePath
-        ? html.replace(
-              /<img([^>]*?)src="(\/[^"]+)"/g,
-              `<img$1src="${basePath}$2"`
-          )
-        : html;
+    // Helper to find closest available size
+    const getOptimizedSize = (width: number) => {
+        const sizes = [
+            10, 16, 32, 48, 64, 96, 128, 256, 384, 640, 750, 828, 1080, 1200,
+            1920, 2048, 3840,
+        ];
+        // Cap at 750 since max content width is 678px
+        const cappedWidth = Math.min(width, 750);
+
+        // Find the smallest size that's >= cappedWidth (prefer next larger for quality)
+        const largerSize = sizes.find(size => size >= cappedWidth);
+        if (largerSize) return largerSize;
+
+        // If no larger size found, return the largest available
+        return sizes[sizes.length - 1];
+    };
+
+    // Helper to parse width and determine appropriate size
+    const parseWidth = (widthStr: string | undefined): number => {
+        if (!widthStr) return 640; // default
+
+        // Check for percentage - calculate based on max content width (678px)
+        if (widthStr.includes('%')) {
+            const percentMatch = widthStr.match(/(\d+)%/);
+            if (percentMatch) {
+                const percent = parseInt(percentMatch[1], 10);
+                return Math.round((percent / 100) * 678); // 678px is max content width
+            }
+        }
+
+        // Extract numeric value
+        const numMatch = widthStr.match(/(\d+)/);
+        return numMatch ? parseInt(numMatch[1], 10) : 640;
+    };
+
+    // Post-process HTML to optimize img tags
+    let processedHtml = html;
+
+    // In development mode, skip optimization to avoid needing to run build for every image change
+    const isDev = process.env.NODE_ENV === 'development';
+
+    // Define responsive breakpoints (matching your hero image preload configuration)
+    const breakpoints = {
+        mobile: 480,
+        tablet: 768,
+        desktop: 1024,
+        wide: 1440,
+    };
+
+    // Optimize <img> tags with /optimized-images/ src (handles both <img> and <img />)
+    processedHtml = processedHtml.replace(
+        /<img([^>]*?)src="(\/optimized-images\/[^"]+)"([^>]*?)(\/?)>/g,
+        (match, before, src, after, selfClosing) => {
+            // In development, return original image with basePath
+            if (isDev) {
+                const finalSrc = basePath ? `${basePath}${src}` : src;
+                return `<img${before}src="${finalSrc}"${after}${selfClosing}>`;
+            }
+
+            // Check if already optimized
+            if (src.includes('nextImageExportOptimizer')) {
+                return match;
+            }
+
+            // Extract width from attributes to select appropriate size
+            const allAttrs = before + after;
+            const widthMatch = allAttrs.match(/width="?([^"\s]+)"?/);
+            const widthStr = widthMatch?.[1];
+            const requestedWidth = parseWidth(widthStr);
+            const optSize = getOptimizedSize(requestedWidth);
+
+            // Extract path and filename
+            const parts = src.replace('/optimized-images/', '').split('/');
+            const filename = parts.pop()?.replace(/\.[^.]+$/, '');
+            const subPath = parts.length > 0 ? `${parts.join('/')}/` : '';
+
+            // Helper to generate optimized path
+            const getOptimizedPath = (size: number) => {
+                const optimizedSrc = `/optimized-images/${subPath}nextImageExportOptimizer/${filename}-opt-${size}.WEBP`;
+                return basePath ? `${basePath}${optimizedSrc}` : optimizedSrc;
+            };
+
+            // Generate srcset based on width type
+            let srcsetAttr = '';
+            let sizesAttr = '';
+
+            if (widthStr?.includes('%')) {
+                // Responsive image: use width descriptors with 1x and 2x for each breakpoint
+                const percent = parseInt(
+                    widthStr.match(/(\d+)/)?.[1] || '100',
+                    10
+                );
+
+                // Calculate display widths at each breakpoint
+                const displayWidths = [
+                    Math.round((breakpoints.mobile * percent) / 100),
+                    Math.round((breakpoints.tablet * percent) / 100),
+                    Math.round((breakpoints.desktop * percent) / 100),
+                    Math.round((breakpoints.wide * percent) / 100),
+                ];
+
+                // Generate 1x and 2x versions for each display width
+                const srcsetParts: string[] = [];
+
+                displayWidths.forEach(displayWidth => {
+                    // 1x version (standard density)
+                    const size1x = getOptimizedSize(displayWidth);
+                    srcsetParts.push(
+                        `${getOptimizedPath(size1x)} ${displayWidth}w`
+                    );
+
+                    // 2x version (retina displays)
+                    const displayWidth2x = displayWidth * 2;
+                    const size2x = getOptimizedSize(displayWidth2x);
+                    srcsetParts.push(
+                        `${getOptimizedPath(size2x)} ${displayWidth2x}w`
+                    );
+                });
+
+                srcsetAttr = ` srcset="${srcsetParts.join(', ')}"`;
+                sizesAttr = ` sizes="(max-width: ${breakpoints.mobile}px) ${percent}vw, (max-width: ${breakpoints.tablet}px) ${percent}vw, (max-width: ${breakpoints.desktop}px) ${percent}vw, ${displayWidths[3]}px"`;
+            } else {
+                // Fixed width: use pixel density descriptors (1x, 2x)
+                const size1x = optSize;
+                const size2x = getOptimizedSize(requestedWidth * 2);
+
+                const src1x = getOptimizedPath(size1x);
+                const src2x = getOptimizedPath(size2x);
+
+                srcsetAttr = ` srcset="${src1x} 1x, ${src2x} 2x"`;
+            }
+
+            // Use the primary optimized size as fallback src
+            const finalSrc = getOptimizedPath(optSize);
+
+            // Add lazy loading if not present
+            const hasLoading = /loading=/.test(before + after);
+            const loadingAttr = hasLoading ? '' : ' loading="lazy"';
+
+            return `<img${before}src="${finalSrc}"${srcsetAttr}${sizesAttr}${after}${loadingAttr}${selfClosing}>`;
+        }
+    );
+
+    // Add basePath to remaining img src attributes
+    if (basePath) {
+        processedHtml = processedHtml.replace(
+            /<img([^>]*?)src="(\/[^"]+)"/g,
+            (match, attrs, src) => {
+                // Skip if already has basePath or is optimized-images (already handled above)
+                if (
+                    src.startsWith(basePath) ||
+                    src.includes('/optimized-images/')
+                ) {
+                    return match;
+                }
+                return `<img${attrs}src="${basePath}${src}"`;
+            }
+        );
+    }
 
     return processedHtml;
 }
