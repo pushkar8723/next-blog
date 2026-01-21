@@ -192,8 +192,8 @@ export async function parseMarkdown(content: string): Promise<string> {
             10, 16, 32, 48, 64, 96, 128, 256, 384, 640, 750, 828, 1080, 1200,
             1920, 2048, 3840,
         ];
-        // Cap at 750 since max content width is 678px
-        const cappedWidth = Math.min(width, 750);
+        // Cap at 828 since max content width is 768px
+        const cappedWidth = Math.min(width, 828);
 
         // Find the smallest size that's >= cappedWidth (prefer next larger for quality)
         const largerSize = sizes.find(size => size >= cappedWidth);
