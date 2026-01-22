@@ -8,6 +8,7 @@ import { TableOfContents } from '@/components/table-of-contents';
 import { Badge } from '@/components/ui/badge';
 import { parseMarkdown } from '@/lib/markdown';
 import Bio from '@/components/bio';
+import { Giscus } from '@/components/giscus';
 
 interface BlogPostPageProps {
     params: Promise<{ slug: string }>;
@@ -139,15 +140,36 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     <hr className="my-12 border-border" />
 
                     <Bio />
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <iframe
-                            title="Subscribe to my blog"
-                            src="https://pushkar8723.substack.com/embed"
-                            width="480"
-                            height="150"
-                            style={{ border: 'none', borderRadius: '5px' }}
-                        />
-                    </div>
+
+                    {process.env.NODE_ENV === 'production' && (
+                        <>
+                            <div className="flex justify-center">
+                                <iframe
+                                    title="Subscribe to my blog"
+                                    src="https://pushkar8723.substack.com/embed"
+                                    width="480"
+                                    height="150"
+                                    className="border-0 rounded-[5px]"
+                                />
+                            </div>
+
+                            <div className="mt-12">
+                                <Giscus />
+                            </div>
+                        </>
+                    )}
+
+                    {process.env.NODE_ENV === 'development' && (
+                        <div className="mt-12 rounded-lg border border-dashed border-muted-foreground/30 bg-muted/20 p-8 text-center text-sm text-muted-foreground">
+                            <p className="font-medium">
+                                💬 Comments Section (Giscus)
+                            </p>
+                            <p className="mt-2">
+                                Comments will appear here in production. Giscus
+                                doesn&apos;t work on localhost.
+                            </p>
+                        </div>
+                    )}
                 </article>
 
                 <aside className="mt-12 lg:sticky lg:top-24 lg:mt-0 lg:self-start">

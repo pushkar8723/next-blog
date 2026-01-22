@@ -169,6 +169,7 @@ Although I've already discussed most of the features above, it's good to list th
   so that while writing a blog, the user doesn't need to worry about image optimization. All that is needed from the user
   is to place images in the `optimized-images` folder and reference them properly in the `src` attribute. The rest is taken
   care of by the build process.
+- **Comments Section**: I added a comment section using [Giscus](https://giscus.app/).
 - **Hot Reload for MDX**: Since MDX file changes are not monitored by Next.js, [mdx-reload](/app/mdx-reload.tsx)
   component is used to automatically refresh the route on MDX file change. This is only present in development
   and is not used in production build.
