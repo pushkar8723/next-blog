@@ -31,3 +31,5 @@ next-env.d.ts.api.backup
 # next-image-export-optimizer generated images
 **/nextImageExportOptimizer/
 **/next-image-export-optimizer-hashes.json
+
+.DS_Store
