@@ -11,7 +11,7 @@ function getFileModifiedDate(filePath: string): string {
     try {
         const stats = fs.statSync(filePath);
         return stats.mtime.toISOString();
-    } catch (error) {
+    } catch {
         // Fallback to build time if file not found
         return new Date().toISOString();
     }
