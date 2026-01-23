@@ -15,7 +15,10 @@
         "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,mdx,css,scss,html}\"",
         "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,md,mdx,css,scss,html}\"",
         "start": "next start",
-        "prepare": "husky"
+        "prepare": "husky",
+        "generate:blog": "tsx scripts/generate-blog.ts",
+        "generate:project": "tsx scripts/generate-project.ts",
+        "generate:page": "tsx scripts/generate-page.ts"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^7.1.0",

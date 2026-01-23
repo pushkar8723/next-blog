@@ -24,7 +24,7 @@ export async function GET() {
   <channel>
     <title>${siteConfig.name}</title>
     <link>${siteConfig.url}</link>
-    <description>${siteConfig.description}</description>
+    <description>${siteConfig.subTitle}</description>
     <language>en</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${siteConfig.url}/rss.xml" rel="self" type="application/rss+xml"/>

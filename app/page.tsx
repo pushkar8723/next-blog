@@ -131,14 +131,7 @@ export default function HomePage() {
                         {siteConfig.name}
                     </h1>
                     <Bio />
-                    <p>
-                        I have 11+ years of experience in crafting digital
-                        experiences through thoughtful code and design.
-                    </p>
-                    <p>
-                        This space on the web is my attempt to share my
-                        projects, writings, and ideas with the world.
-                    </p>
+                    {siteConfig.descriptionElement}
                     <div className="mt-8 flex items-center gap-4 flex-wrap">
                         <a
                             href={siteConfig.links.github}

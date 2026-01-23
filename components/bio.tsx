@@ -19,7 +19,7 @@ export default function Bio() {
                     {siteConfig.title}
                 </p>
                 <p className="text-l text-muted-foreground">
-                    {siteConfig.descriptionElement}
+                    {siteConfig.subTitleElement}
                 </p>
             </div>
         </div>

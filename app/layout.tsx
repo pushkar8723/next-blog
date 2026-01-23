@@ -46,7 +46,7 @@ export const metadata: Metadata = {
         default: `${siteConfig.name} - ${siteConfig.title}`,
         template: `%s | ${siteConfig.name}`,
     },
-    description: siteConfig.description,
+    description: siteConfig.subTitle,
     authors: [{ name: siteConfig.author.name }],
     creator: siteConfig.author.name,
     icons: {
@@ -111,13 +111,13 @@ export const metadata: Metadata = {
         locale: 'en_US',
         url: siteConfig.url,
         title: siteConfig.name,
-        description: siteConfig.description,
+        description: siteConfig.subTitle,
         siteName: siteConfig.name,
     },
     twitter: {
         card: 'summary_large_image',
         title: siteConfig.name,
-        description: siteConfig.description,
+        description: siteConfig.subTitle,
         creator: siteConfig.author.twitter,
     },
     robots: {

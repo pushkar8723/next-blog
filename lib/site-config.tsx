@@ -4,8 +4,8 @@ import { faJsSquare } from '@fortawesome/free-brands-svg-icons';
 export const siteConfig = {
     name: 'Abstracted.in',
     title: 'Pushkar Anand',
-    description: 'Passionate JS Developer', // Used for metadata
-    descriptionElement: (
+    subTitle: 'Passionate JS Developer',
+    subTitleElement: (
         <span className="flex justify-center gap-2">
             Passionate{' '}
             <FontAwesomeIcon
@@ -15,7 +15,20 @@ export const siteConfig = {
             />{' '}
             Developer
         </span>
-    ), // Used for display
+    ),
+    description: `I have 11+ years of experience in crafting digital experiences through thoughtful code and design. This space on the web is my attempt to share my projects, writings, and ideas with the world.`,
+    descriptionElement: (
+        <>
+            <p>
+                I have 11+ years of experience in crafting digital experiences
+                through thoughtful code and design.
+            </p>
+            <p>
+                This space on the web is my attempt to share my projects,
+                writings, and ideas with the world.
+            </p>
+        </>
+    ),
     url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.abstracted.in',
     canonicalUrl: process.env.NEXT_PUBLIC_CANONICAL_URL || null,
     author: {
