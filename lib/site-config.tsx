@@ -38,6 +38,26 @@ export const siteConfig = {
         github: 'pushkar8723',
         linkedin: 'pushkar8723',
     },
+    subscribe: {
+        substack: 'pushkar8723',
+    },
+    comments: {
+        giscus: {
+            enabled: true,
+            repo: 'pushkar8723/next-blog',
+            repoId: 'R_kgDOQ60PQg',
+            category: 'General',
+            categoryId: 'DIC_kwDOQ60PQs4C1Q1O',
+            mapping: 'og:title',
+            strict: '0',
+            reactionsEnabled: '1',
+            emitMetadata: '0',
+            inputPosition: 'top',
+            theme: 'preferred_color_scheme',
+            lang: 'en',
+            loading: 'lazy',
+        },
+    },
     links: {
         facebook: 'https://facebook.com/pushkar8723',
         instagram: 'https://instagram.com/pushkar8723',

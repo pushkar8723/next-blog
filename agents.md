@@ -112,7 +112,21 @@ All pages are generated from MDX files in [/content/](/content/) directory:
 
 - **System**: Giscus (GitHub Discussions-backed)
 - **Component**: [/components/giscus.tsx](/components/giscus.tsx)
-- **Configuration**: Requires GitHub repo setup
+- **Configuration**: [/lib/site-config.tsx](/lib/site-config.tsx) → `comments.giscus` object
+- **Enable/Disable**: Set `enabled: true/false` in `comments.giscus`
+- **Setup Requirements**: GitHub repository with Discussions enabled
+- **Config Fields**: repo, repoId, category, categoryId, mapping, theme, lang, etc.
+- **Behavior**: Returns null if disabled or not configured
+
+### Blog Subscription
+
+- **System**: Substack embed (newsletter subscription)
+- **Component**: [/components/substack-subscribe.tsx](/components/substack-subscribe.tsx)
+- **Configuration**: [/lib/site-config.tsx](/lib/site-config.tsx) → `subscribe.substack` (username)
+- **Enable/Disable**: Set or remove `subscribe.substack` value
+- **Location**: Renders at bottom of blog posts (production only)
+- **Behavior**: Returns null if substack username not configured
+- **Future Ready**: `subscribe` object can hold multiple subscription methods
 
 ### Content Generation Scripts
 
@@ -242,16 +256,19 @@ This section helps LLMs assist users effectively with common portfolio tasks.
 
 ### Common User Requests & How to Handle Them
 
-| User Request                | Action Required           | Commands/Files                                         |
-| --------------------------- | ------------------------- | ------------------------------------------------------ |
-| "Add my profile info"       | Update site config        | Edit [/lib/site-config.tsx](/lib/site-config.tsx)      |
-| "Write a blog post about X" | Create blog with content  | `yarn generate:blog <slug>` → Edit MDX                 |
-| "Add my project Y"          | Create project page       | `yarn generate:project <slug>` → Edit MDX              |
-| "Add About page"            | Create page + add to nav  | `yarn generate:page about` → Update header.tsx         |
-| "Change colors"             | Update CSS variables      | Edit [/app/globals.css](/app/globals.css)              |
-| "Add image to post"         | Place in optimized-images | Copy to `/public/optimized-images/` → Reference in MDX |
-| "See my changes"            | Start dev server          | `yarn dev`                                             |
-| "Deploy my site"            | Build and deploy          | `yarn build` → Host `/out` directory                   |
+| User Request                | Action Required           | Commands/Files                                                         |
+| --------------------------- | ------------------------- | ---------------------------------------------------------------------- |
+| "Add my profile info"       | Update site config        | Edit [/lib/site-config.tsx](/lib/site-config.tsx)                      |
+| "Write a blog post about X" | Create blog with content  | `yarn generate:blog <slug>` → Edit MDX                                 |
+| "Add my project Y"          | Create project page       | `yarn generate:project <slug>` → Edit MDX                              |
+| "Add About page"            | Create page + add to nav  | `yarn generate:page about` → Update header.tsx                         |
+| "Change colors"             | Update CSS variables      | Edit [/app/globals.css](/app/globals.css)                              |
+| "Add image to post"         | Place in optimized-images | Copy to `/public/optimized-images/` → Reference in MDX                 |
+| "Enable comments"           | Configure Giscus          | Edit [/lib/site-config.tsx](/lib/site-config.tsx) `comments.giscus`    |
+| "Add newsletter signup"     | Configure Substack        | Edit [/lib/site-config.tsx](/lib/site-config.tsx) `subscribe.substack` |
+| "Disable comments"          | Turn off Giscus           | Set `comments.giscus.enabled: false` in site-config                    |
+| "See my changes"            | Start dev server          | `yarn dev`                                                             |
+| "Deploy my site"            | Build and deploy          | `yarn build` → Host `/out` directory                                   |
 
 ### Initial Setup Checklist
 
@@ -262,17 +279,24 @@ When user first sets up their portfolio, guide them through:
     - email, social links (GitHub, LinkedIn, Twitter)
     - avatar path
 
-2. **Create Initial Content**:
+2. **Configure Optional Features** (if desired):
+    - **Comments**: Update `comments.giscus` section with GitHub repo details
+        - Get config from https://giscus.app after enabling Discussions on your repo
+        - Set `enabled: true` to activate
+    - **Newsletter**: Set `subscribe.substack` to your Substack username
+        - Leave empty or remove if not using Substack
+
+3. **Create Initial Content**:
     - About page: `yarn generate:page about-me`
     - Work experience: `yarn generate:page work-ex`
     - First blog post: `yarn generate:blog hello-world`
     - First project: `yarn generate:project my-first-project`
 
-3. **Update Navigation**: Add pages to [/components/header.tsx](/components/header.tsx)
+4. **Update Navigation**: Add pages to [/components/header.tsx](/components/header.tsx)
     - Find `navLinks` array
     - Add entries: `{ href: '/about-me', label: 'About' }`
 
-4. **Test Locally**: `yarn dev` → Open http://localhost:3000
+5. **Test Locally**: `yarn dev` → Open http://localhost:3000
 
 ### Content Creation Workflow
 

@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { parseMarkdown } from '@/lib/markdown';
 import Bio from '@/components/bio';
 import { Giscus } from '@/components/giscus';
+import { SubstackSubscribe } from '@/components/substack-subscribe';
 
 interface BlogPostPageProps {
     params: Promise<{ slug: string }>;
@@ -143,15 +144,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
                     {process.env.NODE_ENV === 'production' && (
                         <>
-                            <div className="flex justify-center">
-                                <iframe
-                                    title="Subscribe to my blog"
-                                    src="https://pushkar8723.substack.com/embed"
-                                    width="480"
-                                    height="150"
-                                    className="border-0 rounded-[5px]"
-                                />
-                            </div>
+                            <SubstackSubscribe />
 
                             <div className="mt-12">
                                 <Giscus />
@@ -166,7 +159,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                             </p>
                             <p className="mt-2">
                                 Comments will appear here in production. Giscus
-                                doesn&apos;t work on localhost.
+                                doesn&apos;t work in development.
                             </p>
                         </div>
                     )}
