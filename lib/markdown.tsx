@@ -61,7 +61,7 @@ export async function parseMarkdown(content: string): Promise<string> {
                         ? `${basePath}${href}`
                         : href;
 
-                // Parse title for dimensions, alignment, and loading (format: "width=350 height=350 center eager" or just "title text")
+                // Parse title for dimensions, alignment, aspect-ratio, and loading (format: "width=350 height=350 aspect-ratio=16/9 center eager" or just "title text")
                 let attributes = '';
                 let styles = '';
                 let hasProps = false;
@@ -69,6 +69,9 @@ export async function parseMarkdown(content: string): Promise<string> {
                 if (title) {
                     const widthMatch = title.match(/width=([\d%]+)/);
                     const heightMatch = title.match(/height=([\d%]+)/);
+                    const aspectRatioMatch = title.match(
+                        /aspect-ratio=([\d.]+)[/:]([\d.]+)/
+                    );
                     const centerMatch = title.match(/\bcenter\b/);
                     const eagerMatch = title.match(/\beager\b/);
 
@@ -79,9 +82,14 @@ export async function parseMarkdown(content: string): Promise<string> {
                     if (heightMatch) {
                         attributes += ` height="${heightMatch[1]}"`;
                         hasProps = true;
+                    } else if (aspectRatioMatch) {
+                        // If aspect-ratio provided without height, add as CSS
+                        const ratio = `${aspectRatioMatch[1]}/${aspectRatioMatch[2]}`;
+                        styles += ` aspect-ratio: ${ratio};`;
+                        hasProps = true;
                     }
                     if (centerMatch) {
-                        styles = ' style="display: block; margin: 0 auto;"';
+                        styles += ' display: block; margin: 0 auto;';
                         hasProps = true;
                     }
                     if (eagerMatch) {
@@ -100,7 +108,10 @@ export async function parseMarkdown(content: string): Promise<string> {
                     attributes += ' loading="lazy"';
                 }
 
-                return `<img src="${src}" alt="${text}"${attributes}${styles} />`;
+                // Format style attribute if we have styles
+                const styleAttr = styles ? ` style="${styles.trim()}"` : '';
+
+                return `<img src="${src}" alt="${text}"${attributes}${styleAttr} />`;
             },
             code({ text, lang }) {
                 // Parse language and line highlighting syntax (e.g., "typescript{3-9}")
@@ -192,7 +203,7 @@ export async function parseMarkdown(content: string): Promise<string> {
             10, 16, 32, 48, 64, 96, 128, 256, 384, 640, 750, 828, 1080, 1200,
             1920, 2048, 3840,
         ];
-        // Cap at 828 since max content width is 768px
+        // Cap at 1920 since max content width is 768px
         const cappedWidth = Math.min(width, 1920);
 
         // Find the smallest size that's >= cappedWidth (prefer next larger for quality)

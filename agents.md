@@ -306,9 +306,20 @@ When user first sets up their portfolio, guide them through:
 2. File created at: `/content/blog/descriptive-slug-name.mdx`
 3. Update frontmatter: title, description, date, keywords
 4. Write content in MDX (supports markdown + React components)
-5. Add images to: `/public/optimized-images/blogs/descriptive-slug-name/`
-6. Reference images: `![alt text](../../public/optimized-images/blogs/descriptive-slug-name/image.png)`
-7. Preview: `yarn dev` → Visit `/blog/descriptive-slug-name`
+5. **Adding images** (LLMs should handle this directly):
+    - If image file is provided:
+        - Save to: `/public/optimized-images/blogs/descriptive-slug-name/image-name.ext`
+        - Analyze dimensions (e.g., 1600x900)
+        - Calculate aspect ratio (e.g., 16/9)
+        - Determine optimal display width:
+            - If image width >= 1536px: use `width=100%` (responsive, max 768px display)
+            - If image width < 1536px: use `width=[actual/2]` (e.g., 1200px → width=600)
+        - Write directly in MDX: `![description](/optimized-images/blogs/descriptive-slug-name/image-name.ext){width=100% aspect-ratio=16/9}`
+    - If image NOT provided:
+        - Ask user to provide the image file
+        - Once provided, follow above steps
+    - Use descriptive alt text for accessibility
+6. Preview: `yarn dev` → Visit `/blog/descriptive-slug-name`
 
 **For projects:**
 
@@ -316,6 +327,7 @@ When user first sets up their portfolio, guide them through:
 2. Update frontmatter: title, description, github, priority (0-10), tags
 3. Higher priority = appears first on projects page
 4. Add project screenshots to: `/public/optimized-images/projects/project-name/`
+5. Reference images with dimensions (see image best practices below)
 
 **For pages:**
 
@@ -350,6 +362,21 @@ When user first sets up their portfolio, guide them through:
 - Date format: `YYYY-MM-DD`
 - Tags/keywords: comma-separated strings
 
+**When adding images:**
+
+- Always specify width (and height or aspect-ratio)
+- Max display width is 768px (content area constraint)
+- Optimal width selection based on image size:
+    - Image >= 1536px wide: use `width=100%` (responsive, fills content area up to 768px)
+    - Image < 1536px wide: use `width=[actual/2]` (retina-safe fixed width)
+- Available size buckets: 10, 16, 32, 48, 64, 96, 128, 256, 384, 640, 750, 828, 1080, 1200, 1920, 2048, 3840
+- System auto-generates 1x and 2x versions for optimal loading
+- Syntax examples:
+    - Responsive: `![alt](/path/image.png){width=100% aspect-ratio=16/9}`
+    - Fixed: `![alt](/path/image.png){width=600 aspect-ratio=16/9}`
+- Use descriptive alt text for accessibility
+- LLMs can directly save images and write MDX syntax
+
 **When updating navigation:**
 
 - Maintain array syntax: `[{ href: '/path', label: 'Label' }]`
@@ -366,6 +393,48 @@ When user first sets up their portfolio, guide them through:
 4. Offer to write initial content or have them provide it
 5. Remind about navigation update if it's a page
 
+**User says "I want to add an image":**
+
+1. If image file is provided to you:
+    - Analyze image to determine actual dimensions (width x height)
+    - Calculate aspect ratio (e.g., 1600x900 = 16/9)
+    - Determine optimal display width:
+        - If image width >= 1536px:
+            - Use `width=100%` (responsive, max 768px display)
+            - Auto-generate syntax: `![description](/optimized-images/[path]){width=100% aspect-ratio=16/9}`
+        - If image width < 1536px:
+            - Use `width=[actual/2]` (e.g., 1200px → width=600)
+            - Auto-generate syntax: `![description](/optimized-images/[path]){width=600 aspect-ratio=16/9}`
+    - Save image to: `/public/optimized-images/[type]/[slug]/image-name.ext`
+    - Write the MDX syntax directly in the blog post/project/page
+    - Use descriptive alt text for accessibility
+2. If image file NOT provided:
+    - Ask user to provide the image file
+    - Once provided, follow above steps
+3. No user intervention needed for width calculations - LLM handles automatically
+
+**User says "Image is too small/blurred":**
+
+1. Read the MDX file to check current image syntax and display width
+2. Analyze the actual image file dimensions
+3. Calculate retina requirement: display width × 2 = minimum actual width needed
+4. Diagnose the issue:
+    - If using `width=100%` (max 768px display):
+        - Needs minimum 1536px actual width for sharp rendering
+        - If image < 1536px: explain it's too small for full-width display
+    - If using fixed width (e.g., `width=600`):
+        - Needs minimum 1200px actual width (600 × 2)
+        - If image < required: explain insufficient resolution
+5. Provide solutions:
+    - **Option A**: Reduce display width to `width=[actual/2]`
+        - Example: 800px image → use `width=400` for sharp display
+        - Update MDX syntax with new width
+    - **Option B**: Request higher resolution image
+        - Specify minimum dimensions needed (display width × 2)
+        - Example: "For sharp 600px display, need at least 1200px wide image"
+        - Wait for user to provide higher resolution version
+6. Explain retina displays require 2× resolution for sharp rendering
+
 **User says "It's not working":**
 
 1. Ask what they're trying to do and what they see
@@ -373,6 +442,32 @@ When user first sets up their portfolio, guide them through:
 3. Verify file was created in correct location
 4. Check for syntax errors in frontmatter
 5. Suggest specific terminal command to check logs
+
+**User says "Build is failing":**
+
+1. Ask where the build is failing: locally or on CI/CD (GitHub Actions/Vercel/Netlify)?
+2. **If CI/CD**: Ask user to share the build logs from their deployment platform:
+    - GitHub Actions: Go to Actions tab → Click failed workflow → Copy logs
+    - Vercel: Go to Deployments → Click failed deployment → View logs
+    - Netlify: Go to Deploys → Click failed deploy → View build logs
+3. **If local build**: Ask them to share the error message from terminal
+4. Common build failure causes:
+    - **Syntax errors in MDX files**: Check frontmatter YAML syntax, missing quotes, invalid dates
+    - **Missing images**: Referenced in MDX but not in `/public/optimized-images/`
+    - **Invalid TypeScript**: Check `.tsx` files for type errors
+    - **Missing dependencies**: Run `yarn install`
+    - **Port conflicts**: Kill processes on port 3000 if dev server won't start
+    - **Environment variables**: Missing or incorrect on deployment platform
+5. Diagnostic commands:
+    - `yarn lint` - Check for code errors
+    - `yarn format:check` - Check formatting issues
+    - `yarn clean && yarn build` - Clean rebuild
+6. Read error message carefully:
+    - If mentions file path: Check that specific file for syntax errors
+    - If mentions module not found: Run `yarn install`
+    - If mentions image: Verify image exists at referenced path
+    - If mentions environment variable: Check deployment platform settings
+7. Fix identified issues and retry `yarn build` (local) or push changes (CI/CD)
 
 **User says "How do I deploy?":**
 
