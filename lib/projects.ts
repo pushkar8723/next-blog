@@ -39,16 +39,26 @@ export function getProjectBySlug(slug: string): Project | null {
     // Extract headings for table of contents
     const headingRegex = /^(#{1,3})\s+(.+)$/gm;
     const headings: { id: string; text: string; level: number }[] = [];
+    const idCounts = new Map<string, number>();
     let match;
 
     // eslint-disable-next-line no-cond-assign
     while ((match = headingRegex.exec(content)) !== null) {
         const level = match[1].length;
         const text = match[2];
-        const id = text
+        let id = text
             .toLowerCase()
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/(^-|-$)/g, '');
+
+        // Handle duplicate IDs by appending a counter
+        const baseId = id;
+        const count = idCounts.get(baseId) || 0;
+        if (count > 0) {
+            id = `${baseId}-${count}`;
+        }
+        idCounts.set(baseId, count + 1);
+
         headings.push({ id, text, level });
     }
 

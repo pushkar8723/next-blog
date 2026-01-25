@@ -38,9 +38,31 @@ export async function parseMarkdown(content: string): Promise<string> {
     // Get base path for image URLs
     const basePath = getBasePath();
 
+    // Track heading IDs to handle duplicates
+    const idCounts = new Map<string, number>();
+
     // Custom renderer for code blocks with Shiki and images with basePath
     marked.use({
         renderer: {
+            heading({ text, depth }) {
+                // Generate ID from heading text
+                let id = text
+                    .replace(/<[^>]*>/g, '') // Remove HTML tags
+                    .replace(/`([^`]*)`/g, '$1') // Remove backticks
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/(^-|-$)/g, '');
+
+                // Handle duplicate IDs by appending a counter
+                const baseId = id;
+                const count = idCounts.get(baseId) || 0;
+                if (count > 0) {
+                    id = `${baseId}-${count}`;
+                }
+                idCounts.set(baseId, count + 1);
+
+                return `<h${depth} id="${id}">${text}</h${depth}>`;
+            },
             link({ href, title, text }) {
                 // Prefix local links with basePath
                 const finalHref =
@@ -176,21 +198,6 @@ export async function parseMarkdown(content: string): Promise<string> {
                 });
 
                 return `<div class="code-block" data-language="${language}">${html}</div>`;
-            },
-            heading({ tokens, depth }) {
-                const text = this.parser.parseInline(tokens);
-                const id = text
-                    .toLowerCase()
-                    .replace(/<[^>]*>/g, '')
-                    .replace(/&lt;/g, '<')
-                    .replace(/&gt;/g, '>')
-                    .replace(/&amp;/g, '&')
-                    .replace(/&quot;/g, '"')
-                    .replace(/&#39;/g, "'")
-                    .replace(/`/g, '')
-                    .replace(/[^a-z0-9]+/g, '-')
-                    .replace(/(^-|-$)/g, '');
-                return `<h${depth} id="${id}">${text}</h${depth}>\n`;
             },
         },
     });
