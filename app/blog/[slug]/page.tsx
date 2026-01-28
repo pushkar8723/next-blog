@@ -139,6 +139,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         dangerouslySetInnerHTML={{ __html: htmlContent }}
                     />
 
+                    <TwitterEmbedLoader />
+
                     <hr className="my-12 border-border" />
 
                     <Bio />
@@ -170,7 +172,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     <TableOfContents headings={post.headings} />
                 </aside>
             </div>
-            <TwitterEmbedLoader />
         </div>
     );
 }
