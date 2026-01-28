@@ -10,6 +10,7 @@ import { parseMarkdown } from '@/lib/markdown';
 import Bio from '@/components/bio';
 import { Giscus } from '@/components/giscus';
 import { SubstackSubscribe } from '@/components/substack-subscribe';
+import TwitterEmbedLoader from '@/components/twitter-embed-loader';
 
 interface BlogPostPageProps {
     params: Promise<{ slug: string }>;
@@ -137,6 +138,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         // eslint-disable-next-line react/no-danger
                         dangerouslySetInnerHTML={{ __html: htmlContent }}
                     />
+
+                    <TwitterEmbedLoader />
 
                     <hr className="my-12 border-border" />
 

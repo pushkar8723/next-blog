@@ -1,0 +1,71 @@
+---
+title: 'Introducing AI-Friendly Portfolio + Blog Template'
+date: '2026-02-01'
+description: 'Its like having a experienced web developer maintain your Portfolio!'
+keywords: 'AI Friendly, Blog, Portfolio, Template, Next.js, Tailwind'
+---
+
+> TLDR: I created a Portfolio + Blog template which I optimized for web-vitals, SEO, accessibility and image delivery.
+> The whole project is small and hackable with a comprehensive list of features. But I didn’t stop there. I dumped all
+> the architecture and supported scenarios in an `agents.md` file so that anyone can use AI to customize it.
+
+During Covid, when everyone was stuck at home, I started exploring my interests. I realized that I like sharing my projects
+with the world. However, it was very hard to get the people to try it out with just a tweet about it. This was also the
+time when I fell in love with GraphQL and was trying out everything that used GraphQL. I even created a
+[Fullstack Serverless Template](/blog/fullstack-serverless-template) using Apollo and Netlify!
+
+So naturally my search led me to [Gatsby](https://www.gatsbyjs.com/).
+
+I felt that I found exactly what I needed and so I used [gatsby-starter-blog](https://www.gatsbyjs.com/starters/gatsbyjs/gatsby-starter-blog)
+with a lot of customizations to create my [blog](https://github.com/pushkar8723/blog). It got covered a lot of features
+that I require for my blog. It was simple, React based, used MDX for creating pages, generated RSS feed, optimized images.
+However, I needed few more pages to showcase my projects and work experience. When I share links on social media, I wanted
+the image tile to show, like the **"Building UI components correctly using AI"** card you see in the tweet below
+(instead of a plain link).
+
+<blockquote class="twitter-tweet" align="center">
+    <p lang="en" dir="ltr">
+        AI can generate a “working” React form in seconds but if you don’t understand semantic HTML, ARIA, and keyboard
+        behaviour, your UI will still be broken. <br><br>I wrote a blog on how to build UI components correctly using AI.
+        <br><br>
+        Read it here: <br>👉 <a href="https://t.co/1p3bnXUCM7">https://t.co/1p3bnXUCM7</a>
+    </p>&mdash; Pushkar Anand ❎ (@pushkar8723) 
+    <a href="https://twitter.com/pushkar8723/status/2008081223382716912?ref_src=twsrc%5Etfw">January 5, 2026</a>
+</blockquote>
+
+Hence, I created pages and added plugins to the starter template to have these extra features. I showed it to my friends
+and they liked it. One friend of mine even asked me to [make it a template](https://github.com/pushkar8723/blog/issues/3).
+Which I thought was a good idea.
+
+## The Problem
+
+However this is where I was hit by another realization. My blog was not easily customizable. To use Gatsby, there
+is a steep learning curve. Especially if you are not familiar with UI tech stack and GraphQL. I was not satisfied
+the image tile that Gatsby Plugin provided. I wanted to add few more things like subtitle, date and reading time.
+I was already exhausted from configuration I had to do to add projects, pages, configuring different Gatsby plugins
+and making all of these work with each other, I didn’t had the motivation left in me to make more changes.
+This was before the advent of AI, hence making any change took a long time.
+
+Thus for a long time, I wanted to move to Next.js. File based routing is simpler than Gatsby's configuration
+and using `generateStaticParams` is a lot easier than writing GraphQL queries. It comes with many optimizations
+to create a static website. Only downside was that there is no rich plugin ecosystem like Gatsby. So I needed to
+build a lot of features manually to match what `gatsby-starter-blog` provided.
+
+## Enter v0
+
+Today's landscape is very different from 2020. We have AI and tools like [Replit](https://replit.com/),
+[Loveable](https://lovable.dev/) and [v0](https://v0.app/). I chose v0 to create Next.js based blog as it is part
+of [Vercel](https://vercel.com/) ecosystem.
+
+I entered a prompt with a comprehensive list of features that I wanted and let it do its magic. I did needed few
+corrections here and there but overall it was a great experience. In half an hour I had a working prototype with
+most of the features I wanted. I did want to improve few things but thought to get more opinions before doing that.
+I shared this with my friends and they too had similar feedback to what I was thinking.
+
+## The Good and the bad
+
+## But is this customizable?
+
+## Making the template AI-Friendly
+
+## The Result
