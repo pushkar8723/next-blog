@@ -63,9 +63,16 @@ export async function parseMarkdown(content: string): Promise<string> {
                 );
 
                 // Generate ID from heading text (strip all HTML for ID generation)
+                // First, extract content from backticks and escape HTML entities so they don't get removed
                 let id = text
-                    .replace(/`([^`]*)`/g, '$1') // Remove backticks first (preserves content like `<select>`)
-                    .replace(/<[^>]*>/g, '') // Then remove HTML tags
+                    .replace(/`([^`]*)`/g, (match, code) => {
+                        // Escape HTML entities so <select> becomes select (not removed as HTML tag)
+                        return code
+                            .replace(/</g, '')
+                            .replace(/>/g, '')
+                            .replace(/&/g, '');
+                    })
+                    .replace(/<[^>]*>/g, '') // Then remove any actual HTML tags
                     .toLowerCase()
                     .replace(/[^a-z0-9]+/g, '-')
                     .replace(/(^-|-$)/g, '');
