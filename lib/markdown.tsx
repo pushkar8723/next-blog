@@ -45,10 +45,27 @@ export async function parseMarkdown(content: string): Promise<string> {
     marked.use({
         renderer: {
             heading({ text, depth }) {
-                // Generate ID from heading text
+                // The 'text' parameter may contain raw markdown or processed HTML depending on marked version
+                // We need to manually process inline code (backticks) and escape HTML entities
+
+                // Process inline code: convert `code` to <code>escaped</code>
+                const processedText = text.replace(
+                    /`([^`]+)`/g,
+                    (match, code) => {
+                        const escaped = code
+                            .replace(/&/g, '&amp;')
+                            .replace(/</g, '&lt;')
+                            .replace(/>/g, '&gt;')
+                            .replace(/"/g, '&quot;')
+                            .replace(/'/g, '&#39;');
+                        return `<code>${escaped}</code>`;
+                    }
+                );
+
+                // Generate ID from heading text (strip all HTML for ID generation)
                 let id = text
-                    .replace(/<[^>]*>/g, '') // Remove HTML tags
-                    .replace(/`([^`]*)`/g, '$1') // Remove backticks
+                    .replace(/`([^`]*)`/g, '$1') // Remove backticks first (preserves content like `<select>`)
+                    .replace(/<[^>]*>/g, '') // Then remove HTML tags
                     .toLowerCase()
                     .replace(/[^a-z0-9]+/g, '-')
                     .replace(/(^-|-$)/g, '');
@@ -61,7 +78,7 @@ export async function parseMarkdown(content: string): Promise<string> {
                 }
                 idCounts.set(baseId, count + 1);
 
-                return `<h${depth} id="${id}">${text}</h${depth}>`;
+                return `<h${depth} id="${id}">${processedText}</h${depth}>`;
             },
             link({ href, title, text }) {
                 // Prefix local links with basePath
@@ -198,6 +215,16 @@ export async function parseMarkdown(content: string): Promise<string> {
                 });
 
                 return `<div class="code-block" data-language="${language}">${html}</div>`;
+            },
+            codespan({ text }) {
+                // Escape HTML entities in inline code to prevent rendering as actual HTML
+                const escaped = text
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;');
+                return `<code>${escaped}</code>`;
             },
         },
     });
