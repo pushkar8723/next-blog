@@ -125,6 +125,12 @@
     }
 }
 
+a.link {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
 /* Typography for blog posts */
 .prose {
     @apply text-foreground leading-relaxed;
